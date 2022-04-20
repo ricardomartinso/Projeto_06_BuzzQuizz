@@ -133,10 +133,13 @@ main h2 {
     .todos-os-quizzes {
         margin-bottom: 40px;
     }
+    .quizz-imagem img {
+        width: 100% !important;
+    }
+
     .quizz-boxes {
         justify-content: center;
         gap: 14px;
     }
 
-    
 }
