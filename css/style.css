@@ -134,7 +134,7 @@ main h2 {
         margin-bottom: 40px;
     }
     .quizz-boxes {
-        justify-content: center;
+        justify-content: flex-start;
         gap: 14px;
     }
 
