@@ -222,6 +222,18 @@ main h2 {
 
 }
 
+.resposta-errada{
+    color: #ff0b0b;
+}
+
+.resposta-certa{
+    color: #009c22;
+}
+
+.outras-respostas{
+    opacity: 0.3;
+}
+
 .form-criacao {
     display: flex;
     flex-direction: column;

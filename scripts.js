@@ -71,6 +71,8 @@ function selecionarQuizz(elemento){
     atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
 
     visualizarTela2();
+
+    console.log(questoesQuizz[0].answers);
 }
 
 function visualizarTela2(){
@@ -102,29 +104,64 @@ function atualizarTela2(url, titulo, questoes, niveis){
             </div>
         </div>
         `
-        for (let j = 0; j < respostas.length/2; j++){
+        if (respostas.length % 2 === 0){
+            for (let j = 0; j < respostas.length/2; j++){
+                containerTela2.querySelector(`.pergunta.numero${i}`).innerHTML+= `
+                <div class="respostas">
+                    <div class="resposta" onclick="verificarCorreta()">
+                        <div class="imagem-resposta">
+                            <img src="${respostas[j*2].image}" alt="">
+                        </div>
+                        <div class="texto-resposta">
+                            ${respostas[j*2].text}
+                        </div>
+                    </div>
+                    <div class="resposta" onclick="verificarCorreta()">
+                        <div class="imagem-resposta">
+                            <img src="${respostas[j*2 + 1].image}" alt="">
+                        </div>
+                        <div class="texto-resposta">
+                            ${respostas[j*2 + 1].text}
+                        </div>
+                    </div>
+                </div>
+                `
+    
+            }
+
+        }else {
             containerTela2.querySelector(`.pergunta.numero${i}`).innerHTML+= `
             <div class="respostas">
                 <div class="resposta" onclick="verificarCorreta()">
                     <div class="imagem-resposta">
-                        <img src="${respostas[j*2].image}" alt="">
+                        <img src="${respostas[0].image}" alt="">
                     </div>
                     <div class="texto-resposta">
-                        ${respostas[j*2].text}
+                        ${respostas[0].text}
                     </div>
                 </div>
                 <div class="resposta" onclick="verificarCorreta()">
                     <div class="imagem-resposta">
-                        <img src="${respostas[j*2 + 1].image}" alt="">
+                        <img src="${respostas[1].image}" alt="">
                     </div>
                     <div class="texto-resposta">
-                        ${respostas[j*2 + 1].text}
+                        ${respostas[1].text}
+                    </div>
+                </div>
+            </div>
+            <div class="respostas">
+                <div class="resposta" onclick="verificarCorreta()">
+                    <div class="imagem-resposta">
+                        <img src="${respostas[2].image}" alt="">
+                    </div>
+                    <div class="texto-resposta">
+                        ${respostas[2].text}
                     </div>
                 </div>
             </div>
             `
-
         }
+
 
     }
 }
