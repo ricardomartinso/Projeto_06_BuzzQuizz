@@ -81,7 +81,7 @@ main h2 {
 
 .quizz-boxes {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 19px;
 }
@@ -118,6 +118,110 @@ main h2 {
     border-radius: 3%;
 }
 
+.container-tela-2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e5e5e5;
+    margin-top: 69px;
+}
+
+.imagem-titulo{
+    width: 100%;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 400;
+    color: #ffffff;
+    position: relative;
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 1));
+}
+.imagem-titulo img{
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+    opacity: 60%;
+    filter: brightness(0.6);
+        
+    
+}
+
+.imagem-titulo h3{
+    position: absolute;
+    left: auto;
+    top: auto;
+}
+
+.perguntas {
+    margin-top: 42px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pergunta{
+    padding: 36px;
+    width: 759px;
+    height: 676px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+.titulo-pergunta{
+    width: 100%;
+    height: 20%;
+    font-size: 23px;
+    font-weight: 700;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blue;
+}
+
+.respostas{
+    width: 100%;
+    margin-top: 20px;
+    height: calc(40% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resposta{
+    width: calc(50% - 10px);
+    height: 100%;
+}
+
+.imagem-resposta{
+    width: 100%;
+    height: calc(100% - 42px);
+}
+.imagem-resposta img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.texto-resposta{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 32px;
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 700;
+
+}
+
+.invisivel{
+    display: none;
+}
 
 
 
@@ -138,8 +242,12 @@ main h2 {
     }
 
     .quizz-boxes {
-        justify-content: flex-start;
         gap: 14px;
+    }
+
+    .imagem-titulo{
+        height: 142px;
+        font-size: 20px;
     }
 
 }
