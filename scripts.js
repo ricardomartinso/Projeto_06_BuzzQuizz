@@ -108,7 +108,7 @@ function atualizarTela2(url, titulo, questoes, niveis){
             for (let j = 0; j < respostas.length/2; j++){
                 containerTela2.querySelector(`.pergunta.numero${i}`).innerHTML+= `
                 <div class="respostas">
-                    <div class="resposta" onclick="verificarCorreta()">
+                    <div class="resposta" onclick="verificarCorreta(this)">
                         <div class="imagem-resposta">
                             <img src="${respostas[j*2].image}" alt="">
                         </div>
@@ -116,7 +116,7 @@ function atualizarTela2(url, titulo, questoes, niveis){
                             ${respostas[j*2].text}
                         </div>
                     </div>
-                    <div class="resposta" onclick="verificarCorreta()">
+                    <div class="resposta" onclick="verificarCorreta(this)">
                         <div class="imagem-resposta">
                             <img src="${respostas[j*2 + 1].image}" alt="">
                         </div>
@@ -132,7 +132,7 @@ function atualizarTela2(url, titulo, questoes, niveis){
         }else {
             containerTela2.querySelector(`.pergunta.numero${i}`).innerHTML+= `
             <div class="respostas">
-                <div class="resposta" onclick="verificarCorreta()">
+                <div class="resposta" onclick="verificarCorreta(this)">
                     <div class="imagem-resposta">
                         <img src="${respostas[0].image}" alt="">
                     </div>
@@ -140,7 +140,7 @@ function atualizarTela2(url, titulo, questoes, niveis){
                         ${respostas[0].text}
                     </div>
                 </div>
-                <div class="resposta" onclick="verificarCorreta()">
+                <div class="resposta" onclick="verificarCorreta(this)">
                     <div class="imagem-resposta">
                         <img src="${respostas[1].image}" alt="">
                     </div>
@@ -150,7 +150,7 @@ function atualizarTela2(url, titulo, questoes, niveis){
                 </div>
             </div>
             <div class="respostas">
-                <div class="resposta" onclick="verificarCorreta()">
+                <div class="resposta" onclick="verificarCorreta(this)">
                     <div class="imagem-resposta">
                         <img src="${respostas[2].image}" alt="">
                     </div>
@@ -177,8 +177,10 @@ function criarPerguntas(botao) {
     const urlQuizzCriado = document.querySelector("input[name='url-do-quizz']").value;
     const perguntasQuizzCriado = document.querySelector("input[name='quantidade-perguntas-quizz']").value;
     const niveisQuizzCriado = document.querySelector("input[name='quantidade-niveis-quizz']").value;
+
     let criacaoPerguntas = document.querySelector(".criacao-perguntas");
     criacaoPerguntas.innerHTML = "";
+
     quizzCriado.title = tituloQuizzCriado;
     quizzCriado.image = urlQuizzCriado;
     quizzCriado.questions = perguntasQuizzCriado;
@@ -188,7 +190,7 @@ function criarPerguntas(botao) {
         
         containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
         botao.innerHTML = "Prosseguir para criar níveis";
-        botao.attributes.onclick.value = "criarNiveis()";
+        botao.attributes.onclick.value = "criarNiveis(this)";
         document.querySelector(".form-criacao").classList.add("invisivel");
         document.querySelector(".criacao-perguntas").classList.remove("invisivel");
         
@@ -230,16 +232,16 @@ function criarPerguntas(botao) {
     alert("Por favor preencha os dados corretamente");
 }
 
-
-
 }
-
+function criarNiveis(botao) {
+    containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+    document.querySelector(".criacao-perguntas").classList.add("invisivel");
+    botao.innerHTML = "Finalizar Quizz";
+    botao.attributes.onclick.value = "criarQuizz()";
+}
 function isValidUrl(_string) {
     const matchpattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
     return matchpattern.test(_string);
-}
-function criarNiveis() {
-
 }
 
 
