@@ -31,7 +31,9 @@ header {
     font-weight: bold;
     color: white;
 }
-
+header h1 {
+    cursor: pointer;
+}
 main h2 {
     font-size: 20px;
     font-weight: bold;
@@ -220,13 +222,52 @@ main h2 {
 
 }
 
-.invisivel{
-    display: none;
+.form-criacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 256px;
+    background-color: #fff;
 }
+.criacao-quizz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.criacao-quizz input {
+    width: 564px;
+    height: 46px;
+    margin-bottom: 5px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
 
-
-
-
+}
+.criacao-quizz input::placeholder {
+    font-size: 19px;
+    color: #bababa;
+    padding-left: 10px;
+}
+.criacao-quizz button {
+    width: 368px;
+    height: 54px;
+    background-color: #EC362D;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 19px;
+    margin-top: 40px;
+}
+.container.tela-3 h2 {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    text-align: center;
+}
 
 @media (max-width: 1100px) {
     .container {
@@ -261,5 +302,36 @@ main h2 {
         height: 142px;
         font-size: 20px;
     }
+    .container.tela-3 {
+        width: 100%;
+    }
+    .criacao-quizz {
+        width: 100%;
+    }
+    .form-criacao {
+        max-width: 600px;
+    }
 
+}
+@media (max-width: 609px) {
+    .form-criacao {
+        width: 100%;
+    }
+    .criacao-quizz input {
+        width: 90%;
+    }
+    .criacao-quizz input::placeholder {
+        width: 95%;
+        font-size: 17px;
+        word-wrap:break-word;
+
+
+    }
+    .criacao-quizz button {
+        width:80%;
+    }
+}
+
+.invisivel{
+    display: none;
 }

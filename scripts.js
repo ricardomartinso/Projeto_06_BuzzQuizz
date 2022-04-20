@@ -2,19 +2,19 @@ let listaQuizzes = [];
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
-
-
-
-function helloWorld() {
-    console.log("Hello world");
+const containerTela3 = document.querySelector(".container.tela-3");
+const quizzCriado = {
+    title: "",
+    image: "",
+    questions: [],
+    levels: []
 }
+
+
 
 function pegarQuizzes() {
 
     const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    promise.then(function (resposta) {
-        console.log(resposta.data);
-    })
     promise.then(renderizarQuizzes);
 }
 
@@ -27,7 +27,7 @@ function renderizarQuizzes(resposta) {
 }
 
 function povoarDomQuizzes() {
-
+    
     for (let i = 0; i < listaQuizzes.length; i++) {
         let quizz = listaQuizzes[i];
         containerQuizzes.innerHTML += `
@@ -48,7 +48,9 @@ function povoarDomQuizzes() {
                     
         </div>
         `
+        
     }
+    
 }
 
 function selecionarQuizz(elemento){
@@ -57,16 +59,16 @@ function selecionarQuizz(elemento){
 
     const quizzSelecionado = listaQuizzes[posicaoNoArray];
 
-    const UrlImagem = quizzSelecionado.image;
+    const urlImagem = quizzSelecionado.image;
 
-    const TituloQuizz = quizzSelecionado.title;
+    const tituloQuizz = quizzSelecionado.title;
 
     const questoesQuizz = quizzSelecionado.questions;
 
     const niveisQuizz = quizzSelecionado.levels
 
     //Atualizando o DOM e renderizando a página//
-    atualizarTela2(UrlImagem, TituloQuizz, questoesQuizz, niveisQuizz);
+    atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
 
     visualizarTela2();
 }
@@ -125,6 +127,74 @@ function atualizarTela2(url, titulo, questoes, niveis){
         }
 
     }
+}
+
+function visualizarTela3() {
+    containerTela1.classList.add("invisivel");
+    containerTela3.classList.remove("invisivel");
+}
+
+function criarPerguntas(botao) {
+    
+    const tituloQuizzCriado = document.querySelector("input[name='titulo-do-quizz']").value;
+    const urlQuizzCriado = document.querySelector("input[name='url-do-quizz']").value;
+    const perguntasQuizzCriado = document.querySelector("input[name='quantidade-perguntas-quizz']").value;
+    const niveisQuizzCriado = document.querySelector("input[name='quantidade-niveis-quizz']").value;
+
+
+    if (validarInformacoesBasicas) {
+        quizzCriado.title = tituloQuizzCriado;
+        quizzCriado.image = urlQuizzCriado;
+        quizzCriado.questions = perguntasQuizzCriado;
+        quizzCriado.levels = niveisQuizzCriado;
+        containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
+        botao.innerHTML = "Prosseguir para criar níveis";
+        botao.attributes.onclick.value = "criarNiveis()";
+
+}
+
+}
+function validarInformacoesBasicas() {
+    const tituloQuizzCriado = document.querySelector("input[name='titulo-do-quizz']").value;
+    const urlQuizzCriado = document.querySelector("input[name='url-do-quizz']").value;
+    const perguntasQuizzCriado = document.querySelector("input[name='quantidade-perguntas-quizz']").value;
+    const niveisQuizzCriado = document.querySelector("input[name='quantidade-niveis-quizz']").value;
+
+    if (tituloQuizzCriado.length >= 20 && tituloQuizzCriado.length <= 65 && perguntasQuizzCriado >= 3 && niveisQuizzCriado >= 2) {
+        return true;
+    }
+    return false;
+}
+
+function criarNiveis() {
+
+}
+
+
+function criarQuizz() {
+
+
+
+    let promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizzCriado);
+    promise.catch(function(){
+        alert("Dados inválidos");  
+    })
+
+}
+
+
+
+function voltarHome() {
+    containerTela1.classList.remove("invisivel");
+
+    if (containerTela2.classList.contains("invisivel") === false) {
+        containerTela2.classList.add("invisivel");
+
+    } 
+    else if (containerTela3.classList.contains("invisivel") === false) {
+        containerTela3.classList.add("invisivel");
+    }
+    
 }
 
 function comparador(){
