@@ -14,7 +14,7 @@ const quizzCriado = {
 
 function pegarQuizzes() {
 
-    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes");
     promise.then(renderizarQuizzes);
 }
 
@@ -177,32 +177,67 @@ function criarPerguntas(botao) {
     const urlQuizzCriado = document.querySelector("input[name='url-do-quizz']").value;
     const perguntasQuizzCriado = document.querySelector("input[name='quantidade-perguntas-quizz']").value;
     const niveisQuizzCriado = document.querySelector("input[name='quantidade-niveis-quizz']").value;
-
-
-    if (validarInformacoesBasicas) {
-        quizzCriado.title = tituloQuizzCriado;
-        quizzCriado.image = urlQuizzCriado;
-        quizzCriado.questions = perguntasQuizzCriado;
-        quizzCriado.levels = niveisQuizzCriado;
+    let criacaoPerguntas = document.querySelector(".criacao-perguntas");
+    criacaoPerguntas.innerHTML = "";
+    quizzCriado.title = tituloQuizzCriado;
+    quizzCriado.image = urlQuizzCriado;
+    quizzCriado.questions = perguntasQuizzCriado;
+    quizzCriado.levels = niveisQuizzCriado;
+    
+    if (quizzCriado.title.length >= 20 && quizzCriado.title.length <= 65 && quizzCriado.questions >= 3 && quizzCriado.levels >= 2 && isValidUrl(quizzCriado.image)) {
+        
         containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
         botao.innerHTML = "Prosseguir para criar níveis";
         botao.attributes.onclick.value = "criarNiveis()";
+        document.querySelector(".form-criacao").classList.add("invisivel");
+        document.querySelector(".criacao-perguntas").classList.remove("invisivel");
+        
+
+        for (let i = 0; i < perguntasQuizzCriado; i++) {
+
+            criacaoPerguntas.innerHTML += `
+            <div class="criar-perguntas">
+                <h2>Pergunta ${i+1}</h2>
+                <input type="text" name="texto-da-pergunta" placeholder="Texto da pergunta">
+                <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta">
+                
+                <div class="respostas-da-pergunta">
+                    <h2>Resposta correta</h2>
+                    <div class="resposta-correta">
+                        <input type="text" name="resposta-correta" placeholder="Resposta correta">
+                        <input type="url" name="url-resposta-correta" placeholder="Url da imagem">
+                    </div>
+                    <h2>Respostas incorretas</h2>
+                    <div class="respostas-incorreta">
+                        <div class="resposta-incorreta">
+                            <input type="text" name="resposta1" placeholder="Resposta incorreta 1">
+                            <input type="url" name="url-resposta1" placeholder="Url da imagem">
+                        </div>
+                        <div class="resposta-incorreta">
+                            <input type="text" name="resposta2" placeholder="Resposta incorreta 2">
+                            <input type="url" name="url-resposta2" placeholder="Url da imagem">
+                        </div>
+                        <div class="resposta-incorreta">
+                            <input type="text" name="resposta3" placeholder="Resposta incorreta 3">
+                            <input type="url" name="url-resposta3" placeholder="Url da imagem">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+} else {
+    alert("Por favor preencha os dados corretamente");
+}
+
+
 
 }
 
+function isValidUrl(_string) {
+    const matchpattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
+    return matchpattern.test(_string);
 }
-function validarInformacoesBasicas() {
-    const tituloQuizzCriado = document.querySelector("input[name='titulo-do-quizz']").value;
-    const urlQuizzCriado = document.querySelector("input[name='url-do-quizz']").value;
-    const perguntasQuizzCriado = document.querySelector("input[name='quantidade-perguntas-quizz']").value;
-    const niveisQuizzCriado = document.querySelector("input[name='quantidade-niveis-quizz']").value;
-
-    if (tituloQuizzCriado.length >= 20 && tituloQuizzCriado.length <= 65 && perguntasQuizzCriado >= 3 && niveisQuizzCriado >= 2) {
-        return true;
-    }
-    return false;
-}
-
 function criarNiveis() {
 
 }

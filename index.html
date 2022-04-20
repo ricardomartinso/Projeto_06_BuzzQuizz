@@ -263,12 +263,42 @@
         <h2>Comece pelo começo</h2>
         <div class="criacao-quizz">
             <div class="form-criacao">
-            <input type="text" name="titulo-do-quizz" placeholder="Título do seu quizz">
-            <input type="text" name="url-do-quizz" placeholder="URL da imagem do seu quizz">
-            <input type="text" name="quantidade-perguntas-quizz" placeholder="Quantidade de perguntas do quizz">
-            <input type="text" name="quantidade-niveis-quizz" placeholder="Quantidade de níveis do quizz">
-            
-        </div>
+                <input type="text" name="titulo-do-quizz" placeholder="Título do seu quizz">
+                <input type="text" name="url-do-quizz" placeholder="URL da imagem do seu quizz">
+                <input type="text" name="quantidade-perguntas-quizz" placeholder="Quantidade de perguntas do quizz">
+                <input type="text" name="quantidade-niveis-quizz" placeholder="Quantidade de níveis do quizz">
+            </div>
+            <div class="criacao-perguntas invisivel">
+                
+                <div class="criar-perguntas">
+                    <h2>Pergunta 1</h2>
+                    <input type="text" name="texto-da-pergunta" placeholder="Texto da pergunta">
+                    <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta">
+                    
+                    <div class="respostas-da-pergunta">
+                        <h2>Resposta correta</h2>
+                        <div class="resposta-correta">
+                            <input type="text" name="resposta-correta" placeholder="Resposta correta">
+                            <input type="url" name="url-resposta-correta" placeholder="Url da imagem">
+                        </div>
+                        <h2>Respostas incorretas</h2>
+                        <div class="respostas-incorreta">
+                            <div class="resposta-incorreta">
+                                <input type="text" name="resposta1" placeholder="Resposta incorreta 1">
+                                <input type="url" name="url-resposta1" placeholder="Url da imagem">
+                            </div>
+                            <div class="resposta-incorreta">
+                                <input type="text" name="resposta2" placeholder="Resposta incorreta 2">
+                                <input type="url" name="url-resposta2" placeholder="Url da imagem">
+                            </div>
+                            <div class="resposta-incorreta">
+                                <input type="text" name="resposta3" placeholder="Resposta incorreta 3">
+                                <input type="url" name="url-resposta3" placeholder="Url da imagem">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <button type="submit" onclick="criarPerguntas(this)">Prosseguir para criar perguntas</button>
         </div>
     </div>
