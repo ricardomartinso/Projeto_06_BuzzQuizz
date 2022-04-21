@@ -81,7 +81,7 @@ function selecionarQuizz(elemento){
 function verificarCorreta(elemento){
     const conjuntoRespostas = elemento.parentNode;
     conjuntoRespostas.querySelectorAll(".resposta")
-    console.log("oi");
+    console.log("ola");
 }
 
 
