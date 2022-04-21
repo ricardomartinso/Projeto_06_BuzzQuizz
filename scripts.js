@@ -123,7 +123,7 @@ function atualizarTela2(url, titulo, questoes, niveis) {
                         </div>
                         <div class="texto-resposta">
                             ${respostas[j * 2 + 1].text}
-                        </div> 
+                        </div>
                     </div>
                 </div>
                 `;
