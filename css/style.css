@@ -196,6 +196,7 @@ main h2 {
 .resposta {
   width: calc(50% - 10px);
   height: 100%;
+  max-width: calc(50% - 10px);
 }
 
 .imagem-resposta {
@@ -211,6 +212,8 @@ main h2 {
 
 .texto-resposta {
   display: flex;
+  word-break: break-word;
+  max-width: 100%;
   align-items: center;
   justify-content: flex-start;
   height: 32px;

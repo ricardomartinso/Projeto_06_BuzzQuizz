@@ -1,5 +1,6 @@
 let listaQuizzes = [];
 let listaPerguntasQuizz = [];
+let numeroDaPergunta;
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
@@ -74,8 +75,23 @@ function selecionarQuizz(elemento) {
 }
 
 function verificarCorreta(elemento) {
-  const conjuntoRespostas = elemento.parentNode;
-  conjuntoRespostas.querySelectorAll(".resposta");
+  const conjuntoRespostas = elemento.parentNode.parentNode;
+  numeroDaPergunta = conjuntoRespostas.classList[1].replace("numero", "");
+  console.log(numeroDaPergunta);
+  conjuntoRespostas
+    .querySelectorAll(".resposta")
+    .forEach(esbranquicarRespostas);
+  elemento.classList.remove("outras-respostas");
+}
+
+function esbranquicarRespostas(item, index) {
+  item.classList.add("outras-respostas");
+  item.onclick = "";
+  if (listaPerguntasQuizz[numeroDaPergunta].answers[index].isCorrectAnswer) {
+    item.classList.add("resposta-certa");
+  } else {
+    item.classList.add("resposta-errada");
+  }
 }
 
 function visualizarTela2() {
