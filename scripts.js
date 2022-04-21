@@ -75,12 +75,14 @@ function selecionarQuizz(elemento){
 
     console.log(questoesQuizz[0].answers);
     listaPerguntasQuizz = questoesQuizz;
+    console.log("besteira");
 
 }
 
 function verificarCorreta(elemento){
     const conjuntoRespostas = elemento.parentNode;
     conjuntoRespostas.querySelectorAll(".resposta")
+    console.log("besteira");
 }
 
 
