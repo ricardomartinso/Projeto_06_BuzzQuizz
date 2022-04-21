@@ -76,12 +76,14 @@ function selecionarQuizz(elemento){
     console.log(questoesQuizz[0].answers);
     listaPerguntasQuizz = questoesQuizz;
     console.log("oi");
+    console.log("XD");
 }
 
 function verificarCorreta(elemento){
     const conjuntoRespostas = elemento.parentNode;
     conjuntoRespostas.querySelectorAll(".resposta")
     console.log("ola");
+    console.log("XD");
 }
 
 
