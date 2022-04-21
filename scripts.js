@@ -1,4 +1,5 @@
 let listaQuizzes = [];
+let listaPerguntasQuizz = [];
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
@@ -73,7 +74,15 @@ function selecionarQuizz(elemento){
     visualizarTela2();
 
     console.log(questoesQuizz[0].answers);
+    listaPerguntasQuizz = questoesQuizz;
+
 }
+
+function verificarCorreta(elemento){
+    const conjuntoRespostas = elemento.parentNode;
+    conjuntoRespostas.querySelectorAll(".resposta")
+}
+
 
 function visualizarTela2(){
     containerTela1.classList.add("invisivel");
