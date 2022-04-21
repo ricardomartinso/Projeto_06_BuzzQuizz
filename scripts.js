@@ -205,8 +205,14 @@ function criarPerguntas(botao) {
 
     for (let i = 0; i < perguntasQuizzCriado; i++) {
       criacaoPerguntas.innerHTML += `
-            <div class="criar-perguntas">
-                <h2>Pergunta ${i + 1}</h2>
+            <div class="pergunta-criacao" onclick="abrirPergunta(this)">
+            <p>Pergunta ${i + 1}</p>
+            <ion-icon name="mail"></ion-icon>
+            </div>
+            <div class="criar-perguntas invisivel">
+                <h2 style="display: flex;" onclick="fecharPergunta(this)">Pergunta ${
+                  i + 1
+                }</h2>
                 <input type="text" name="texto-da-pergunta" placeholder="Texto da pergunta">
                 <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta">
                 
@@ -239,6 +245,16 @@ function criarPerguntas(botao) {
     alert("Por favor preencha os dados corretamente");
   }
 }
+
+function abrirPergunta(pergunta) {
+  pergunta.classList.toggle("invisivel");
+  pergunta.nextElementSibling.classList.toggle("invisivel");
+}
+function fecharPergunta(pergunta) {
+  pergunta.parentNode.previousElementSibling.classList.remove("invisivel");
+  pergunta.parentNode.classList.add("invisivel");
+}
+
 function criarNiveis(botao) {
   containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
   document.querySelector(".criacao-perguntas").classList.add("invisivel");
