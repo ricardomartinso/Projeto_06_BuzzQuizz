@@ -76,12 +76,25 @@ function selecionarQuizz(elemento) {
 
 function verificarCorreta(elemento) {
   const conjuntoRespostas = elemento.parentNode.parentNode;
-  numeroDaPergunta = conjuntoRespostas.classList[1].replace("numero", "");
+  numeroDaPergunta = Number(
+    conjuntoRespostas.classList[1].replace("numero", "")
+  );
   console.log(numeroDaPergunta);
   conjuntoRespostas
     .querySelectorAll(".resposta")
     .forEach(esbranquicarRespostas);
   elemento.classList.remove("outras-respostas");
+  setTimeout(rolarParaPerguntaSeguinte, 2000);
+}
+
+function rolarParaPerguntaSeguinte() {
+  if (numeroDaPergunta !== listaPerguntasQuizz.length - 1) {
+    document.querySelector(`.numero${numeroDaPergunta + 1}`).scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "center",
+    });
+  }
 }
 
 function esbranquicarRespostas(item, index) {
@@ -98,6 +111,8 @@ function visualizarTela2() {
   containerTela1.classList.add("invisivel");
 
   containerTela2.classList.remove("invisivel");
+
+  document.querySelector(".imagem-titulo").scrollIntoView(false);
 }
 
 function atualizarTela2(url, titulo, questoes, niveis) {
