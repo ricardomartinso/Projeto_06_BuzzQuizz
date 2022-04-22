@@ -422,7 +422,7 @@ main h2 {
     max-width: 600px;
   }
 }
-@media (max-width: 609px) {
+@media (max-width: 650px) {
   .form-criacao {
     width: 100%;
   }
@@ -437,8 +437,24 @@ main h2 {
   .criacao-quizz button {
     width: 80%;
   }
+  .respostas-da-pergunta {
+    width: 100%;
+  }
+  .criar-perguntas {
+    width: 95%;
+    margin: 0 auto 20px auto;
+  }
+  .criacao-perguntas {
+    width: 100%;
+  }
+  .criacao-perguntas input {
+    width: 100%;
+  }
+  .pergunta-criacao {
+    width: 95%;
+    margin: 0 auto 20px auto;
+  }
 }
-
 .invisivel {
   display: none;
 }
