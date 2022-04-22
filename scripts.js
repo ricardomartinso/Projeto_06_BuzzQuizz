@@ -10,7 +10,7 @@ const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
 const containerTela3 = document.querySelector(".container.tela-3");
-const quizzCriado = {
+let quizzCriado = {
   title: "",
   image: "",
   questions: [],
@@ -369,60 +369,74 @@ function criarPerguntas(botao) {
   }
 }
 
-function coletarInfoPerguntas() {
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    console.log(
-      document.querySelectorAll("input[name='texto-da-pergunta']")[i].value
-    );
-  }
+function coletarInfoPerguntas(i) {
+  const perguntasTexto = document.querySelectorAll(
+    "input[name='texto-da-pergunta']"
+  )[i].value;
+  return perguntasTexto;
 }
-function coletarInfoCor() {
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    console.log(
-      document.querySelectorAll("input[name='cor-da-pergunta']")[i].value
-    );
-  }
+function coletarInfoCor(i) {
+  const cor = document.querySelectorAll("input[name='cor-da-pergunta']")[i]
+    .value;
+  return cor;
 }
-function coletarInfoRespostasCorretas() {
+function coletarInfoRespostasCorretas(i) {
+  const answers = [];
+
   for (let i = 0; i < quizzCriado.questions; i++) {
-    console.log(
-      document.querySelectorAll("input[name='resposta-correta']")[i].value
-    );
+    const answer = {};
+    answer.text = document.querySelectorAll("input[name='resposta-correta']")[
+      i
+    ].value;
+    answer.image = document.querySelectorAll(
+      "input[name='url-resposta-correta']"
+    )[i].value;
+    answer.isCorrectAnswer = true;
+    answers.push(answer);
   }
+  return answers[i];
 }
-function coletarInfoUrlCorretas() {
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    console.log(
-      document.querySelectorAll("input[name='url-resposta-correta']")[i].value
-    );
-  }
-}
-function coletarInfoRespostasIncorretas() {
+
+function coletarInfoRespostasIncorretas(i) {
+  const answers = [];
   let respostasIncorretas = document.querySelectorAll(
     "input[name='resposta-incorreta']"
   );
-  for (let i = 0; i < quizzCriado.questions * 3; i++) {
-    console.log(respostasIncorretas[i].value);
-  }
-}
-function coletarInfoUrlIncorretas() {
   let urlIncorretas = document.querySelectorAll(
     "input[name='url-resposta-incorreta']"
   );
   for (let i = 0; i < quizzCriado.questions * 3; i++) {
-    console.log(urlIncorretas[i].value);
+    const answer = {};
+    answer.text = respostasIncorretas[i].value;
+    answer.image = urlIncorretas[i].value;
+    answer.isCorrectAnswer = false;
+    answers.push(answer);
   }
+  return answers[i];
 }
+
 function coletarTodasInfos() {
-  coletarInfoPerguntas();
-  coletarInfoCor();
-  coletarInfoRespostasCorretas();
-  coletarInfoUrlCorretas();
-  coletarInfoRespostasIncorretas();
-  coletarInfoUrlIncorretas();
+  const answers = [];
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    let answer = {};
+    answer =
+      coletarInfoRespostasCorretas(i) + coletarInfoRespostasIncorretas(i);
+    answers.push(answer);
+  }
+  return answers;
 }
 
 function criarNiveis(botao) {
+  const questions = [];
+  for (let index = 0; index < quizzCriado.questions; index++) {
+    const question = {};
+    question.title = coletarInfoPerguntas(index);
+    question.color = coletarInfoCor(index);
+    question.answers = [];
+    questions.push(question);
+  }
+  console.log(questions);
+
   containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
   document.querySelector(".criacao-perguntas").classList.add("invisivel");
   botao.innerHTML = "Finalizar Quizz";
@@ -474,3 +488,81 @@ function voltarHome() {
 function comparador() {
   return Math.random() - 0.5;
 }
+
+questions: [
+  {
+    title: "Título da pergunta 1",
+    color: "#123456",
+    answers: [
+      {
+        text: "Texto da resposta 1",
+        image: "https://http.cat/411.jpg",
+        isCorrectAnswer: true,
+      },
+      {
+        text: "Texto da resposta 2",
+        image: "https://http.cat/412.jpg",
+        isCorrectAnswer: false,
+      },
+    ],
+  },
+
+  {
+    title: "Título da pergunta 2",
+    color: "#123456",
+    answers: [
+      {
+        text: "Texto da resposta 1",
+        image: "https://http.cat/411.jpg",
+        isCorrectAnswer: true,
+      },
+      {
+        text: "Texto da resposta 2",
+        image: "https://http.cat/412.jpg",
+        isCorrectAnswer: false,
+      },
+    ],
+  },
+
+  {
+    title: "Título da pergunta 3",
+    color: "#123456",
+    answers: [
+      {
+        text: "Texto da resposta 1",
+        image: "https://http.cat/411.jpg",
+        isCorrectAnswer: true,
+      },
+      {
+        text: "Texto da resposta 2",
+        image: "https://http.cat/412.jpg",
+        isCorrectAnswer: false,
+      },
+    ],
+  },
+];
+
+function enviarObjetos() {
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    quizzCriado.questions[i] += {
+      title: "Título da pergunta 1",
+      color: "#123456",
+      answers: [
+        {
+          text: "Texto da resposta 1",
+          image: "https://http.cat/411.jpg",
+          isCorrectAnswer: true,
+        },
+        {
+          text: "Texto da resposta 2",
+          image: "https://http.cat/412.jpg",
+          isCorrectAnswer: false,
+        },
+      ],
+    };
+  }
+}
+
+// PEGAR VARIAVEIS QUE RECEBEM AS PERGUNTAS E RESPOSTAS DO USUARIO
+// ENVIAR ESSAS PERGUNTAS E RESPOSTAS PRO ARRAY DE OBJETOS
+//
