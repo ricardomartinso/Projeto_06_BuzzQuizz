@@ -68,7 +68,7 @@ function selecionarQuizz(elemento) {
   const niveisQuizz = quizzSelecionado.levels;
 
   //Atualizando o DOM e renderizando a página//
-  //atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+  atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
 
   visualizarTela2();
 
