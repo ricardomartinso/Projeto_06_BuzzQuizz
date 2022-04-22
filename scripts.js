@@ -1,8 +1,11 @@
 let listaQuizzes = [];
+let posicaoNoArray;
 let listaPerguntasQuizz = [];
 let numeroDaPergunta;
 let numeroDeAcertos = 0;
+let numeroPerguntasRespondidas = 0;
 let porcentagemDeAcerto;
+let niveisQuizz = [];
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
@@ -33,12 +36,12 @@ function povoarDomQuizzes() {
   for (let i = 0; i < listaQuizzes.length; i++) {
     let quizz = listaQuizzes[i];
     containerQuizzes.innerHTML += `
-        <div id="${i}" class="quizz-box" onclick="selecionarQuizz(this)">
+        <div id="${i}" class="quizz-box" onclick="selecionarQuizz(this)" data-id-do-quizz="${quizz.id}">
 
             <div class="linear-gradient"></div>
 
             <div class="quizz-imagem">
-                <img 
+                <img
                 src="${quizz.image}" 
                 style="width: 340px; height: 181px; object-fit: fill;"
                 >
@@ -55,7 +58,7 @@ function povoarDomQuizzes() {
 
 function selecionarQuizz(elemento) {
   //Definindo variáveis do quizz que serão usadas ao renderizar a tela 2//
-  const posicaoNoArray = Number(elemento.id);
+  posicaoNoArray = Number(elemento.id);
 
   const quizzSelecionado = listaQuizzes[posicaoNoArray];
 
@@ -65,7 +68,7 @@ function selecionarQuizz(elemento) {
 
   const questoesQuizz = quizzSelecionado.questions;
 
-  const niveisQuizz = quizzSelecionado.levels;
+  niveisQuizz = quizzSelecionado.levels;
 
   //Atualizando o DOM e renderizando a página//
   atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
@@ -77,6 +80,7 @@ function selecionarQuizz(elemento) {
 }
 
 function verificarCorreta(elemento) {
+  numeroPerguntasRespondidas++;
   const conjuntoRespostas = elemento.parentNode.parentNode;
   numeroDaPergunta = Number(
     conjuntoRespostas.classList[1].replace("numero", "")
@@ -86,6 +90,15 @@ function verificarCorreta(elemento) {
     .querySelectorAll(".resposta")
     .forEach(esbranquicarRespostas);
   elemento.classList.remove("outras-respostas");
+  if (elemento.classList.contains("resposta-certa")) {
+    numeroDeAcertos++;
+  }
+  if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
+    porcentagemDeAcerto = Math.round(
+      (numeroDeAcertos / numeroPerguntasRespondidas) * 100
+    );
+    nivelAtingido(niveisQuizz);
+  }
   setTimeout(rolarParaPerguntaSeguinte, 2000);
 }
 
@@ -93,7 +106,13 @@ function rolarParaPerguntaSeguinte() {
   if (numeroDaPergunta !== listaPerguntasQuizz.length - 1) {
     document.querySelector(`.numero${numeroDaPergunta + 1}`).scrollIntoView({
       behavior: "smooth",
-      block: "end",
+      block: "start",
+      inline: "center",
+    });
+  } else if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
+    document.querySelector(".pergunta.nivel").scrollIntoView({
+      behavior: "smooth",
+      block: "center",
       inline: "center",
     });
   }
@@ -104,7 +123,6 @@ function esbranquicarRespostas(item, index) {
   item.onclick = "";
   if (listaPerguntasQuizz[numeroDaPergunta].answers[index].isCorrectAnswer) {
     item.classList.add("resposta-certa");
-    numeroDeAcertos++;
   } else {
     item.classList.add("resposta-errada");
   }
@@ -118,6 +136,7 @@ function visualizarTela2() {
   document.querySelector(".imagem-titulo").scrollIntoView(false);
 
   numeroDeAcertos = 0;
+  numeroPerguntasRespondidas = 0;
 }
 
 function atualizarTela2(url, titulo, questoes, niveis) {
@@ -195,6 +214,46 @@ function atualizarTela2(url, titulo, questoes, niveis) {
                 </div>
             </div>
             `;
+    }
+  }
+}
+
+function nivelAtingido(niveis) {
+  let aux;
+  for (let i = 0; i < niveis.length; i++) {
+    for (let j = i + 1; j < niveis.length; j++) {
+      if (niveis[i].minValue < niveis[j].minValue) {
+        aux = niveis[i];
+        niveis[i] = niveis[j];
+        niveis[j] = aux;
+      }
+    }
+  }
+  console.log(niveis);
+  for (let k = 0; k < niveis.length; k++) {
+    let nivel = niveis[k];
+    if (porcentagemDeAcerto >= nivel.minValue) {
+      containerTela2.innerHTML += `
+      <div class="pergunta nivel">
+        <div class="titulo-nivel">
+          <h3>${porcentagemDeAcerto}% de acerto: ${nivel.title}</h3>
+        </div>
+        <div class="conteudo-nivel">
+          <div class="imagem-nivel">
+            <img
+              src="${nivel.image}"
+              alt=""
+            />
+          </div>
+          <div class="texto-nivel">
+            <span
+              >${nivel.text}</span
+            >
+          </div>
+        </div>
+      </div>
+      `;
+      return;
     }
   }
 }
