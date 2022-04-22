@@ -1,6 +1,8 @@
 let listaQuizzes = [];
 let listaPerguntasQuizz = [];
 let numeroDaPergunta;
+let numeroDeAcertos = 0;
+let porcentagemDeAcerto;
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
@@ -66,7 +68,7 @@ function selecionarQuizz(elemento) {
   const niveisQuizz = quizzSelecionado.levels;
 
   //Atualizando o DOM e renderizando a página//
-  atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+  //atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
 
   visualizarTela2();
 
@@ -102,6 +104,7 @@ function esbranquicarRespostas(item, index) {
   item.onclick = "";
   if (listaPerguntasQuizz[numeroDaPergunta].answers[index].isCorrectAnswer) {
     item.classList.add("resposta-certa");
+    numeroDeAcertos++;
   } else {
     item.classList.add("resposta-errada");
   }
@@ -113,6 +116,8 @@ function visualizarTela2() {
   containerTela2.classList.remove("invisivel");
 
   document.querySelector(".imagem-titulo").scrollIntoView(false);
+
+  numeroDeAcertos = 0;
 }
 
 function atualizarTela2(url, titulo, questoes, niveis) {
@@ -316,6 +321,8 @@ function voltarHome() {
   } else if (containerTela3.classList.contains("invisivel") === false) {
     containerTela3.classList.add("invisivel");
   }
+
+  document.querySelector(".criar-quizz").scrollIntoView(false);
 }
 
 function comparador() {

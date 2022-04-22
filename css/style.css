@@ -234,6 +234,49 @@ main h2 {
   opacity: 0.3;
 }
 
+.nivel {
+  height: initial;
+  padding: 18px;
+  margin: 44px 0 100px 0;
+}
+.titulo-nivel {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 23px;
+}
+.conteudo-nivel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 273px;
+  background-color: white;
+  margin-top: 18px;
+}
+.imagem-nivel {
+  width: calc(50% - 10px);
+}
+.imagem-nivel img {
+  object-fit: cover;
+  height: 273px;
+  width: 100%;
+}
+.texto-nivel {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: calc(50% - 10px);
+  font-size: 19px;
+  line-height: 25px;
+}
+
 .form-criacao {
   display: flex;
   flex-direction: column;
