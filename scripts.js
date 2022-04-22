@@ -276,7 +276,6 @@ function criarPerguntas(botao) {
   const niveisQuizzCriado = document.querySelector(
     "input[name='quantidade-niveis-quizz']"
   ).value;
-
   let criacaoPerguntas = document.querySelector(".criacao-perguntas");
   criacaoPerguntas.innerHTML = "";
 
@@ -284,7 +283,7 @@ function criarPerguntas(botao) {
   quizzCriado.image = urlQuizzCriado;
   quizzCriado.questions = perguntasQuizzCriado;
   quizzCriado.levels = niveisQuizzCriado;
-
+  console.log(perguntasQuizzCriado);
   if (
     quizzCriado.title.length >= 20 &&
     quizzCriado.title.length <= 65 &&
@@ -298,18 +297,47 @@ function criarPerguntas(botao) {
     document.querySelector(".form-criacao").classList.add("invisivel");
     document.querySelector(".criacao-perguntas").classList.remove("invisivel");
 
-    for (let i = 0; i < perguntasQuizzCriado; i++) {
+    criacaoPerguntas.innerHTML += `<div class="criar-perguntas">
+              <h2 style="display: flex;" onclick="fecharPergunta(this)">Pergunta 1</h2>
+              <input type="text" name="texto-da-pergunta" placeholder="Texto da pergunta">
+              <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta" maxlength="7">
+              
+              <div class="respostas-da-pergunta">
+                  <h2>Resposta correta</h2>
+                  <div class="resposta-correta">
+                      <input type="text" name="resposta-correta" placeholder="Resposta correta">
+                      <input type="url" name="url-resposta-correta" placeholder="Url da imagem">
+                  </div>
+                  <h2>Respostas incorretas</h2>
+                  <div class="respostas-incorreta">
+                      <div class="resposta-incorreta">
+                          <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 1">
+                          <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
+                      </div>
+                      <div class="resposta-incorreta">
+                          <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 2">
+                          <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
+                      </div>
+                      <div class="resposta-incorreta">
+                          <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 3">
+                          <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          `;
+    for (let i = 0; i < perguntasQuizzCriado - 1; i++) {
       criacaoPerguntas.innerHTML += `
             <div class="pergunta-criacao" onclick="abrirPergunta(this)">
-            <p>Pergunta ${i + 1}</p>
+            <p>Pergunta ${i + 2}</p>
             <ion-icon name="mail"></ion-icon>
             </div>
             <div class="criar-perguntas invisivel">
                 <h2 style="display: flex;" onclick="fecharPergunta(this)">Pergunta ${
-                  i + 1
+                  i + 2
                 }</h2>
                 <input type="text" name="texto-da-pergunta" placeholder="Texto da pergunta">
-                <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta">
+                <input type="text" name="cor-da-pergunta" placeholder="Cor de fundo da pergunta" maxlength="7">
                 
                 <div class="respostas-da-pergunta">
                     <h2>Resposta correta</h2>
@@ -320,16 +348,16 @@ function criarPerguntas(botao) {
                     <h2>Respostas incorretas</h2>
                     <div class="respostas-incorreta">
                         <div class="resposta-incorreta">
-                            <input type="text" name="resposta1" placeholder="Resposta incorreta 1">
-                            <input type="url" name="url-resposta1" placeholder="Url da imagem">
+                            <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 1">
+                            <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
                         </div>
                         <div class="resposta-incorreta">
-                            <input type="text" name="resposta2" placeholder="Resposta incorreta 2">
-                            <input type="url" name="url-resposta2" placeholder="Url da imagem">
+                            <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 2">
+                            <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
                         </div>
                         <div class="resposta-incorreta">
-                            <input type="text" name="resposta3" placeholder="Resposta incorreta 3">
-                            <input type="url" name="url-resposta3" placeholder="Url da imagem">
+                            <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 3">
+                            <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
                         </div>
                     </div>
                 </div>
@@ -341,13 +369,57 @@ function criarPerguntas(botao) {
   }
 }
 
-function abrirPergunta(pergunta) {
-  pergunta.classList.toggle("invisivel");
-  pergunta.nextElementSibling.classList.toggle("invisivel");
+function coletarInfoPerguntas() {
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    console.log(
+      document.querySelectorAll("input[name='texto-da-pergunta']")[i].value
+    );
+  }
 }
-function fecharPergunta(pergunta) {
-  pergunta.parentNode.previousElementSibling.classList.remove("invisivel");
-  pergunta.parentNode.classList.add("invisivel");
+function coletarInfoCor() {
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    console.log(
+      document.querySelectorAll("input[name='cor-da-pergunta']")[i].value
+    );
+  }
+}
+function coletarInfoRespostasCorretas() {
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    console.log(
+      document.querySelectorAll("input[name='resposta-correta']")[i].value
+    );
+  }
+}
+function coletarInfoUrlCorretas() {
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    console.log(
+      document.querySelectorAll("input[name='url-resposta-correta']")[i].value
+    );
+  }
+}
+function coletarInfoRespostasIncorretas() {
+  let respostasIncorretas = document.querySelectorAll(
+    "input[name='resposta-incorreta']"
+  );
+  for (let i = 0; i < quizzCriado.questions * 3; i++) {
+    console.log(respostasIncorretas[i].value);
+  }
+}
+function coletarInfoUrlIncorretas() {
+  let urlIncorretas = document.querySelectorAll(
+    "input[name='url-resposta-incorreta']"
+  );
+  for (let i = 0; i < quizzCriado.questions * 3; i++) {
+    console.log(urlIncorretas[i].value);
+  }
+}
+function coletarTodasInfos() {
+  coletarInfoPerguntas();
+  coletarInfoCor();
+  coletarInfoRespostasCorretas();
+  coletarInfoUrlCorretas();
+  coletarInfoRespostasIncorretas();
+  coletarInfoUrlIncorretas();
 }
 
 function criarNiveis(botao) {
@@ -355,11 +427,6 @@ function criarNiveis(botao) {
   document.querySelector(".criacao-perguntas").classList.add("invisivel");
   botao.innerHTML = "Finalizar Quizz";
   botao.attributes.onclick.value = "criarQuizz()";
-}
-function isValidUrl(_string) {
-  const matchpattern =
-    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
-  return matchpattern.test(_string);
 }
 
 function criarQuizz() {
@@ -370,6 +437,26 @@ function criarQuizz() {
   promise.catch(function () {
     alert("Dados inválidos");
   });
+}
+
+function abrirPergunta(pergunta) {
+  pergunta.classList.toggle("invisivel");
+  pergunta.nextElementSibling.classList.toggle("invisivel");
+}
+function fecharPergunta(pergunta) {
+  pergunta.parentNode.previousElementSibling.classList.remove("invisivel");
+  pergunta.parentNode.classList.add("invisivel");
+}
+
+function isValidUrl(_string) {
+  const matchpattern =
+    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
+  return matchpattern.test(_string);
+}
+
+function isValidColor(string) {
+  const hexColor = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
+  return hexColor.test(string);
 }
 
 function voltarHome() {
