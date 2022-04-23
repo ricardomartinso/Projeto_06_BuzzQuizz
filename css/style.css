@@ -243,6 +243,7 @@ main h2 {
   display: flex;
   height: 100px;
   align-items: center;
+  word-break: break-all;
   justify-content: center;
   background-color: red;
   font-weight: 700;
@@ -270,11 +271,46 @@ main h2 {
   display: flex;
   height: 100%;
   flex-wrap: wrap;
+  word-break: break-all;
   align-items: flex-start;
   justify-content: flex-start;
   width: calc(50% - 10px);
   font-size: 19px;
   line-height: 25px;
+}
+
+.botoes-final-quizz {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botoes-final-quizz :hover {
+  cursor: pointer;
+}
+
+.reiniciar-quizz {
+  width: 260px;
+  height: 52px;
+  background-color: #ec362d;
+  border-radius: 15px;
+  color: #fff5f4;
+  font-size: 21px;
+  line-height: 24px;
+  font-weight: 400;
+  text-align: center;
+  border-color: #ec362d;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.voltar-home {
+  width: 220px;
+  height: 44px;
+  color: #818181;
+  font-size: 21px;
+  line-height: 24px;
+  text-align: center;
+  margin: 16px 0;
 }
 
 .form-criacao {
