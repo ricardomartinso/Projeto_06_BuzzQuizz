@@ -6,6 +6,13 @@ let numeroDeAcertos = 0;
 let numeroPerguntasRespondidas = 0;
 let porcentagemDeAcerto;
 let niveisQuizz = [];
+let quizzSelecionado;
+
+let urlImagem;
+
+let tituloQuizz;
+
+let questoesQuizz;
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
 const containerTela2 = document.querySelector(".container-tela-2");
@@ -60,13 +67,13 @@ function selecionarQuizz(elemento) {
   //Definindo variáveis do quizz que serão usadas ao renderizar a tela 2//
   posicaoNoArray = Number(elemento.id);
 
-  const quizzSelecionado = listaQuizzes[posicaoNoArray];
+  quizzSelecionado = listaQuizzes[posicaoNoArray];
 
-  const urlImagem = quizzSelecionado.image;
+  urlImagem = quizzSelecionado.image;
 
-  const tituloQuizz = quizzSelecionado.title;
+  tituloQuizz = quizzSelecionado.title;
 
-  const questoesQuizz = quizzSelecionado.questions;
+  questoesQuizz = quizzSelecionado.questions;
 
   niveisQuizz = quizzSelecionado.levels;
 
@@ -252,10 +259,21 @@ function nivelAtingido(niveis) {
           </div>
         </div>
       </div>
+      <div class="botoes-final-quizz">
+        <button class="reiniciar-quizz" onclick="reiniciarQuizz()">
+          Reiniciar Quizz
+        </button>
+        <div class="voltar-home" onclick="voltarHome()">Voltar pra home</div>
+      </div>
       `;
       return;
     }
   }
+}
+
+function reiniciarQuizz() {
+  atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+  visualizarTela2();
 }
 
 function visualizarTela3() {
