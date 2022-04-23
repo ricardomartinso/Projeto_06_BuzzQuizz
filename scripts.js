@@ -399,29 +399,33 @@ function coletarInfoRespostasCorretas(i) {
 
 function coletarInfoRespostasIncorretas(i) {
   const answers = [];
-  let respostasIncorretas = document.querySelectorAll(
+  const respostasIncorretas = document.querySelectorAll(
     "input[name='resposta-incorreta']"
-  );
-  let urlIncorretas = document.querySelectorAll(
+  ).value;
+  const urlIncorretas = document.querySelectorAll(
     "input[name='url-resposta-incorreta']"
-  );
-  for (let i = 0; i < quizzCriado.questions * 3; i++) {
-    const answer = {};
-    answer.text = respostasIncorretas[i].value;
-    answer.image = urlIncorretas[i].value;
-    answer.isCorrectAnswer = false;
-    answers.push(answer);
+  ).value;
+  for (let i = 0; i < respostasIncorretas.length; i++) {
+    if (respostasIncorretas[i].value !== "" && urlIncorretas[i].value !== "") {
+      const answer = {};
+      answer.text = respostasIncorretas[i];
+      answer.image = urlIncorretas[i];
+      answer.isCorrectAnswer = false;
+      answers.push(answer);
+    }
   }
+  console.log(answers);
   return answers[i];
 }
 
-function coletarTodasInfos() {
+function coletarTodasInfos(i) {
   const answers = [];
   for (let i = 0; i < quizzCriado.questions; i++) {
-    let answer = {};
-    answer =
-      coletarInfoRespostasCorretas(i) + coletarInfoRespostasIncorretas(i);
-    answers.push(answer);
+    const answer = {};
+    answers.push(
+      coletarInfoRespostasCorretas(i),
+      coletarInfoRespostasIncorretas(i)
+    );
   }
   return answers;
 }
@@ -432,15 +436,28 @@ function criarNiveis(botao) {
     const question = {};
     question.title = coletarInfoPerguntas(index);
     question.color = coletarInfoCor(index);
-    question.answers = [];
+    question.answers = [coletarTodasInfos(index)];
     questions.push(question);
   }
   console.log(questions);
 
-  containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
-  document.querySelector(".criacao-perguntas").classList.add("invisivel");
-  botao.innerHTML = "Finalizar Quizz";
-  botao.attributes.onclick.value = "criarQuizz()";
+  for (let i = 0; i < quizzCriado.questions; i++) {
+    if (
+      textoDaPergunta[i].value.length >= 20 &&
+      isValidColor(corDasPerguntas[i].value) &&
+      isValidUrl(urlCorretas[i].value) &&
+      isValidUrl(urlIncorretas[i].value) &&
+      respostasCorretas[i].value !== "" &&
+      respostasIncorretas[i].value !== ""
+    ) {
+      containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+      document.querySelector(".criacao-perguntas").classList.add("invisivel");
+      botao.innerHTML = "Finalizar Quizz";
+      botao.attributes.onclick.value = "criarQuizz()";
+    } else {
+      alert("Dados inválidos por favor digite novamente!");
+    }
+  }
 }
 
 function criarQuizz() {
@@ -541,28 +558,3 @@ questions: [
     ],
   },
 ];
-
-function enviarObjetos() {
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    quizzCriado.questions[i] += {
-      title: "Título da pergunta 1",
-      color: "#123456",
-      answers: [
-        {
-          text: "Texto da resposta 1",
-          image: "https://http.cat/411.jpg",
-          isCorrectAnswer: true,
-        },
-        {
-          text: "Texto da resposta 2",
-          image: "https://http.cat/412.jpg",
-          isCorrectAnswer: false,
-        },
-      ],
-    };
-  }
-}
-
-// PEGAR VARIAVEIS QUE RECEBEM AS PERGUNTAS E RESPOSTAS DO USUARIO
-// ENVIAR ESSAS PERGUNTAS E RESPOSTAS PRO ARRAY DE OBJETOS
-//
