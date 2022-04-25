@@ -495,9 +495,10 @@ function pegarRespostas(i) {
     ) {
       contadorDeRespostas++;
     }
+
     for (let k = 0; k < contadorDeRespostas; k++) {
       if (
-        contadorDeRespostas < 1 ||
+        contadorDeRespostas === 0 ||
         !isValidUrl(urlsIncorretas[k].value) ||
         respostasIncorretas[k].value === ""
       ) {
@@ -509,6 +510,7 @@ function pegarRespostas(i) {
       }
     }
   }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
   return answers[i];
@@ -527,6 +529,11 @@ function coletarTodasInfos() {
   }
   console.log(answers);
 =======
+=======
+  if (contadorDeRespostas === 0) {
+    alert("Preencha ao menos 1 resposta incorreta para a pergunta " + (i + 1));
+  }
+>>>>>>> b3b1dec92592556048baf458cb602079d71d53ae
   quizzCriado.questions.answers = answers;
 >>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
   return answers;
@@ -534,8 +541,12 @@ function coletarTodasInfos() {
 
 function criarNiveis(botao) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   for (let index = 0; index < numeroQuestoesQuizz; index++) {
 =======
+=======
+  let quizzNiveis = containerTela3.querySelector(".criacao-niveis");
+>>>>>>> b3b1dec92592556048baf458cb602079d71d53ae
   const questions = [];
   for (let index = 0; index < numeroDePerguntas; index++) {
 >>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
@@ -552,6 +563,7 @@ function criarNiveis(botao) {
   ) {
     quizzCriado.questions = questions;
     containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+    quizzNiveis.classList.remove("invisivel");
     document.querySelector(".criacao-perguntas").classList.add("invisivel");
     botao.innerHTML = "Finalizar Quizz";
     botao.attributes.onclick.value = "criarQuizz()";
