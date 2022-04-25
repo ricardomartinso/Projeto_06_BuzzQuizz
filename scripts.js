@@ -306,24 +306,14 @@ function criarPerguntas(botao) {
 
   quizzCriado.title = tituloQuizzCriado;
   quizzCriado.image = urlQuizzCriado;
-<<<<<<< HEAD
-  numeroQuestoesQuizz = perguntasQuizzCriado;
-  numeroNiveisQuizz = niveisQuizzCriado;
-=======
   numeroDePerguntas = perguntasQuizzCriado;
   numeroDeNiveis = niveisQuizzCriado;
->>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
   console.log(perguntasQuizzCriado);
   if (
     quizzCriado.title.length >= 20 &&
     quizzCriado.title.length <= 65 &&
-<<<<<<< HEAD
-    numeroQuestoesQuizz >= 3 &&
-    numeroNiveisQuizz >= 2 &&
-=======
     numeroDePerguntas >= 3 &&
     numeroDeNiveis >= 2 &&
->>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
     isValidUrl(quizzCriado.image)
   ) {
     containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
@@ -495,7 +485,6 @@ function pegarRespostas(i) {
     ) {
       contadorDeRespostas++;
     }
-
     for (let k = 0; k < contadorDeRespostas; k++) {
       if (
         contadorDeRespostas === 0 ||
@@ -510,46 +499,14 @@ function pegarRespostas(i) {
       }
     }
   }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-  return answers[i];
-}
-
-function coletarTodasInfos() {
-  const answers = [];
-
-  for (let i = 0; i < quizzCriado.questions * 3; i += 3) {
-    answers.push(
-      coletarInfoRespostasCorretas(i),
-      coletarInfoRespostasIncorretas(i),
-      coletarInfoRespostasIncorretas(i + 1),
-      coletarInfoRespostasIncorretas(i + 2)
-    );
-  }
-  console.log(answers);
-=======
-=======
-  if (contadorDeRespostas === 0) {
-    alert("Preencha ao menos 1 resposta incorreta para a pergunta " + (i + 1));
-  }
->>>>>>> b3b1dec92592556048baf458cb602079d71d53ae
   quizzCriado.questions.answers = answers;
->>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
   return answers;
 }
 
 function criarNiveis(botao) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  for (let index = 0; index < numeroQuestoesQuizz; index++) {
-=======
-=======
-  let quizzNiveis = containerTela3.querySelector(".criacao-niveis");
->>>>>>> b3b1dec92592556048baf458cb602079d71d53ae
   const questions = [];
   for (let index = 0; index < numeroDePerguntas; index++) {
->>>>>>> 30ddb700d66a39e6f213bb7c0d93cf0bccec333f
     const question = {};
     question.title = coletarInfoPerguntas(index);
     question.color = coletarInfoCor(index);
@@ -563,7 +520,6 @@ function criarNiveis(botao) {
   ) {
     quizzCriado.questions = questions;
     containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
-    quizzNiveis.classList.remove("invisivel");
     document.querySelector(".criacao-perguntas").classList.add("invisivel");
     botao.innerHTML = "Finalizar Quizz";
     botao.attributes.onclick.value = "criarQuizz()";
