@@ -530,6 +530,7 @@ function criarNiveis(botao) {
 }
 
 function criarQuizz() {
+  console.log(quizzCriado);
   let promise = axios.post(
     "https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes",
     quizzCriado
