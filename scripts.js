@@ -18,6 +18,10 @@ const criacaoNiveis = document.querySelector(".criacao-niveis");
 const criacaoQuizzFinalizado = document.querySelector(".quizz-finalizado");
 let tituloQuizz;
 
+let idsUsuario = [];
+
+carregarIdsUsuario();
+
 let questoesQuizz;
 const containerQuizzes = document.querySelector(".quizz-boxes");
 const containerTela1 = document.querySelector(".container");
@@ -71,6 +75,39 @@ function povoarDomQuizzes() {
                     
         </div>
         `;
+  }
+}
+
+function quizzesDoUsuario() {
+  let seusQuizzes = document.querySelector(".criar-quizz");
+  seusQuizzes.innerHTML = "<div class='container-quizzes-usuario'></div>";
+
+  for (let i = 0; i < idsUsuario.length; i++) {
+    let promise = axios.get(
+      `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${idsUsuario[i]}`
+    );
+    promise.then(function (resposta) {
+      let quizz = resposta.data;
+
+      seusQuizzes.querySelector(".container-quizzes-usuario").innerHTML += `
+    <div class="quizz-box" onclick="selecionarQuizzUsuario(this)" data-id-do-quizz="${quizz.id}">
+
+            <div class="linear-gradient"></div>
+
+            <div class="quizz-imagem">
+                <img
+                src="${quizz.image}" 
+                style="width: 340px; height: 181px; object-fit: fill;"
+                >
+            </div>
+            
+            <div class="quizz-titulo">
+                <p>${quizz.title}</p>
+            </div>
+                    
+        </div>
+    `;
+    });
   }
 }
 
@@ -648,7 +685,7 @@ function criarQuizz(botao) {
     criacaoNiveis.classList.add("invisivel");
     criacaoQuizzFinalizado.classList.remove("invisivel");
     criacaoQuizzFinalizado.innerHTML = `<div class="quizz-finalizado">
-    <div class="quizz-box" data-id-do-quizz="">
+    <div class="quizz-box" data-id-do-quizz="" onclick="acessarQuizz()">
       <div class="linear-gradient"></div>
 
       <div class="quizz-imagem">
@@ -666,6 +703,13 @@ function criarQuizz(botao) {
     botao.innerHTML = "Acessar quizz";
     botao.attributes.onclick.value = "acessarQuizz()";
   });
+
+  promise.then(function (resposta) {
+    idsUsuario.push(resposta.data.id);
+    let idsSerializados = JSON.stringify(idsUsuario);
+    localStorage.setItem("ids", idsSerializados);
+  });
+
   promise.catch(function () {
     alert("Falha ao enviar o quizz fornecido");
   });
@@ -712,15 +756,11 @@ function isValidColor(string) {
 }
 
 function voltarHome() {
-  containerTela1.classList.remove("invisivel");
+  window.location.reload();
+}
 
-  if (containerTela2.classList.contains("invisivel") === false) {
-    containerTela2.classList.add("invisivel");
-  } else if (containerTela3.classList.contains("invisivel") === false) {
-    containerTela3.classList.add("invisivel");
-  }
-
-  document.querySelector(".criar-quizz").scrollIntoView(false);
+function carregarIdsUsuario() {
+  idsUsuario = JSON.parse(localStorage.getItem("ids"));
 }
 
 function comparador() {
