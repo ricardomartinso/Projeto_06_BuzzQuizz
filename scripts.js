@@ -327,7 +327,7 @@ function criarPerguntas(botao) {
                       <input type="url" name="url-resposta-correta" placeholder="Url da imagem">
                   </div>
                   <h2>Respostas incorretas</h2>
-                  <div class="respostas-incorreta">
+                  <div class="respostas-incorretas">
                       <div class="resposta-incorreta">
                           <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 1">
                           <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
@@ -364,7 +364,7 @@ function criarPerguntas(botao) {
                         <input type="url" name="url-resposta-correta" placeholder="Url da imagem">
                     </div>
                     <h2>Respostas incorretas</h2>
-                    <div class="respostas-incorreta">
+                    <div class="respostas-incorretas">
                         <div class="resposta-incorreta">
                             <input type="text" name="resposta-incorreta" placeholder="Resposta incorreta 1">
                             <input type="url" name="url-resposta-incorreta" placeholder="Url da imagem">
@@ -419,32 +419,34 @@ function coletarInfoRespostasIncorretas(i) {
   const answers = [];
   const respostasIncorretas = document.querySelectorAll(
     "input[name='resposta-incorreta']"
-  ).value;
+  );
   const urlIncorretas = document.querySelectorAll(
     "input[name='url-resposta-incorreta']"
-  ).value;
+  );
   for (let i = 0; i < respostasIncorretas.length; i++) {
     if (respostasIncorretas[i].value !== "" && urlIncorretas[i].value !== "") {
       const answer = {};
-      answer.text = respostasIncorretas[i];
-      answer.image = urlIncorretas[i];
+      answer.text = respostasIncorretas[i].value;
+      answer.image = urlIncorretas[i].value;
       answer.isCorrectAnswer = false;
       answers.push(answer);
     }
   }
-  console.log(answers);
+
   return answers[i];
 }
 
-function coletarTodasInfos(i) {
+function coletarTodasInfos() {
   const answers = [];
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    const answer = {};
+
+  for (let i = 0; i < quizzCriado.questions * 3; i += 3)
     answers.push(
       coletarInfoRespostasCorretas(i),
-      coletarInfoRespostasIncorretas(i)
+      coletarInfoRespostasIncorretas(i),
+      coletarInfoRespostasIncorretas(i + 1),
+      coletarInfoRespostasIncorretas(i + 2)
     );
-  }
+  console.log(answers);
   return answers;
 }
 
@@ -459,23 +461,10 @@ function criarNiveis(botao) {
   }
   console.log(questions);
 
-  for (let i = 0; i < quizzCriado.questions; i++) {
-    if (
-      textoDaPergunta[i].value.length >= 20 &&
-      isValidColor(corDasPerguntas[i].value) &&
-      isValidUrl(urlCorretas[i].value) &&
-      isValidUrl(urlIncorretas[i].value) &&
-      respostasCorretas[i].value !== "" &&
-      respostasIncorretas[i].value !== ""
-    ) {
-      containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
-      document.querySelector(".criacao-perguntas").classList.add("invisivel");
-      botao.innerHTML = "Finalizar Quizz";
-      botao.attributes.onclick.value = "criarQuizz()";
-    } else {
-      alert("Dados inválidos por favor digite novamente!");
-    }
-  }
+  containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+  document.querySelector(".criacao-perguntas").classList.add("invisivel");
+  botao.innerHTML = "Finalizar Quizz";
+  botao.attributes.onclick.value = "criarQuizz()";
 }
 
 function criarQuizz() {
