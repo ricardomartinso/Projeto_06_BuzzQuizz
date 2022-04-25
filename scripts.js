@@ -23,6 +23,8 @@ let quizzCriado = {
   questions: [],
   levels: [],
 };
+let numeroQuestoesQuizz;
+let numeroNiveisQuizz;
 
 function pegarQuizzes() {
   const promise = axios.get(
@@ -299,14 +301,14 @@ function criarPerguntas(botao) {
 
   quizzCriado.title = tituloQuizzCriado;
   quizzCriado.image = urlQuizzCriado;
-  quizzCriado.questions = perguntasQuizzCriado;
-  quizzCriado.levels = niveisQuizzCriado;
+  numeroQuestoesQuizz = perguntasQuizzCriado;
+  numeroNiveisQuizz = niveisQuizzCriado;
   console.log(perguntasQuizzCriado);
   if (
     quizzCriado.title.length >= 20 &&
     quizzCriado.title.length <= 65 &&
-    quizzCriado.questions >= 3 &&
-    quizzCriado.levels >= 2 &&
+    numeroQuestoesQuizz >= 3 &&
+    numeroNiveisQuizz >= 2 &&
     isValidUrl(quizzCriado.image)
   ) {
     containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
@@ -347,8 +349,8 @@ function criarPerguntas(botao) {
     for (let i = 0; i < perguntasQuizzCriado - 1; i++) {
       criacaoPerguntas.innerHTML += `
             <div class="pergunta-criacao" onclick="abrirPergunta(this)">
-            <p>Pergunta ${i + 2}</p>
-            <ion-icon name="mail"></ion-icon>
+              <p>Pergunta ${i + 2}</p>
+              <ion-icon name="mail"></ion-icon>
             </div>
             <div class="criar-perguntas invisivel">
                 <h2 style="display: flex;" onclick="fecharPergunta(this)">Pergunta ${
@@ -439,20 +441,20 @@ function coletarInfoRespostasIncorretas(i) {
 function coletarTodasInfos() {
   const answers = [];
 
-  for (let i = 0; i < quizzCriado.questions * 3; i += 3)
+  for (let i = 0; i < quizzCriado.questions * 3; i += 3) {
     answers.push(
       coletarInfoRespostasCorretas(i),
       coletarInfoRespostasIncorretas(i),
       coletarInfoRespostasIncorretas(i + 1),
       coletarInfoRespostasIncorretas(i + 2)
     );
+  }
   console.log(answers);
   return answers;
 }
 
 function criarNiveis(botao) {
-  const questions = [];
-  for (let index = 0; index < quizzCriado.questions; index++) {
+  for (let index = 0; index < numeroQuestoesQuizz; index++) {
     const question = {};
     question.title = coletarInfoPerguntas(index);
     question.color = coletarInfoCor(index);

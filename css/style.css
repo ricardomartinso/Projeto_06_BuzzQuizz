@@ -93,6 +93,10 @@ main h2 {
   position: relative;
 }
 
+.quizz-box:last-child {
+  margin-bottom: 19px;
+}
+
 .quizz-imagem img {
   position: absolute;
   z-index: 0;
