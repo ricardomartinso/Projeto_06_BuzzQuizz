@@ -416,6 +416,29 @@ main h2 {
   color: black;
   margin-right: 15px;
 }
+.criacao-niveis {
+  max-width: 1060px;
+}
+.criar-nivel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px rgb(0 0 0 / 50%);
+  margin-bottom: 30px;
+}
+.criar-nivel h2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 15px 15px 15px !important;
+}
 @media (max-width: 1100px) {
   main {
     width: 100%;
@@ -493,6 +516,17 @@ main h2 {
   .pergunta-criacao {
     width: 95%;
     margin: 0 auto 20px auto;
+  }
+  .criacao-niveis {
+    width: 90%;
+  }
+  .criar-nivel {
+    width: 90%;
+  }
+  .criacao-quizz input::placeholder {
+    font-size: 15px;
+    color: #bababa;
+    padding-left: 10px;
   }
 }
 .invisivel {
