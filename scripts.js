@@ -48,6 +48,10 @@ function pegarQuizzes() {
 
 pegarQuizzes();
 
+if (idsUsuario.length !== 0) {
+  quizzesDoUsuario();
+}
+
 function renderizarQuizzes(resposta) {
   listaQuizzes = resposta.data;
   containerQuizzes.innerHTML = "";
