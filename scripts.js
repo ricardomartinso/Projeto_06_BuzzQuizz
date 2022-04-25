@@ -111,6 +111,33 @@ function quizzesDoUsuario() {
   }
 }
 
+function selecionarQuizzUsuario(elemento) {
+  let idDoQuizz = elemento.getAttribute("data-id-do-quizz");
+  const promessa = axios.get(
+    `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${idDoQuizz}`
+  );
+
+  promessa.then(function (response) {
+    quizzSelecionado = response.data;
+
+    urlImagem = quizzSelecionado.image;
+
+    tituloQuizz = quizzSelecionado.title;
+
+    questoesQuizz = quizzSelecionado.questions;
+
+    niveisQuizz = quizzSelecionado.levels;
+
+    //Atualizando o DOM e renderizando a página//
+    atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+
+    visualizarTela2();
+
+    console.log(questoesQuizz[0].answers);
+    listaPerguntasQuizz = questoesQuizz;
+  });
+}
+
 function selecionarQuizz(elemento) {
   //Definindo variáveis do quizz que serão usadas ao renderizar a tela 2//
   posicaoNoArray = Number(elemento.id);
