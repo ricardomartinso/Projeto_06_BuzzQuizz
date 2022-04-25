@@ -7,7 +7,9 @@ let numeroPerguntasRespondidas = 0;
 let porcentagemDeAcerto;
 let niveisQuizz = [];
 let quizzSelecionado;
-
+let verificarRespostas;
+let verificarPerguntas;
+let verificarCor;
 let urlImagem;
 
 let tituloQuizz;
@@ -23,6 +25,9 @@ let quizzCriado = {
   questions: [],
   levels: [],
 };
+
+let numeroDePerguntas;
+let numeroDeNiveis;
 
 function pegarQuizzes() {
   const promise = axios.get(
@@ -299,14 +304,14 @@ function criarPerguntas(botao) {
 
   quizzCriado.title = tituloQuizzCriado;
   quizzCriado.image = urlQuizzCriado;
-  quizzCriado.questions = perguntasQuizzCriado;
-  quizzCriado.levels = niveisQuizzCriado;
+  numeroDePerguntas = perguntasQuizzCriado;
+  numeroDeNiveis = niveisQuizzCriado;
   console.log(perguntasQuizzCriado);
   if (
     quizzCriado.title.length >= 20 &&
     quizzCriado.title.length <= 65 &&
-    quizzCriado.questions >= 3 &&
-    quizzCriado.levels >= 2 &&
+    numeroDePerguntas >= 3 &&
+    numeroDeNiveis >= 2 &&
     isValidUrl(quizzCriado.image)
   ) {
     containerTela3.querySelector("h2").innerHTML = "Crie suas perguntas";
@@ -391,17 +396,29 @@ function coletarInfoPerguntas(i) {
   const perguntasTexto = document.querySelectorAll(
     "input[name='texto-da-pergunta']"
   )[i].value;
-  return perguntasTexto;
+  if (perguntasTexto.length >= 20) {
+    verificarPerguntas = true;
+    return perguntasTexto;
+  } else {
+    alert(`Dados inválidos para Pergunta ${i + 1}`);
+    verificarPerguntas = false;
+  }
 }
 function coletarInfoCor(i) {
   const cor = document.querySelectorAll("input[name='cor-da-pergunta']")[i]
     .value;
-  return cor;
+  if (isValidColor(cor)) {
+    verificarCor = true;
+    return cor;
+  } else {
+    alert("Dados inválidos para cor da pergunta " + (i + 1));
+    verificarCor = false;
+  }
 }
 function coletarInfoRespostasCorretas(i) {
   const answers = [];
 
-  for (let i = 0; i < quizzCriado.questions; i++) {
+  for (let i = 0; i < numeroDePerguntas; i++) {
     const answer = {};
     answer.text = document.querySelectorAll("input[name='resposta-correta']")[
       i
@@ -414,67 +431,97 @@ function coletarInfoRespostasCorretas(i) {
   }
   return answers[i];
 }
-
-function coletarInfoRespostasIncorretas(index) {
+function pegarRespostas(i) {
   const answers = [];
-  const respostasIncorretas = document.querySelectorAll(
+
+  let criarPerguntasNl = document.querySelectorAll(".criar-perguntas");
+  let respostaCorreta = criarPerguntasNl[i].querySelector(
+    "input[name='resposta-correta']"
+  );
+  let urlCorreta = criarPerguntasNl[i].querySelector(
+    "input[name='url-resposta-correta']"
+  );
+  let respostasIncorretas = criarPerguntasNl[i].querySelectorAll(
     "input[name='resposta-incorreta']"
   );
-  const urlIncorretas = document.querySelectorAll(
+  let urlsIncorretas = criarPerguntasNl[i].querySelectorAll(
     "input[name='url-resposta-incorreta']"
   );
-  for (let i = 0; i < respostasIncorretas.length; i++) {
-    if (respostasIncorretas[i].value !== "" && urlIncorretas[i].value !== "") {
+  quizzCriado.questions.answers;
+
+  if (
+    respostaCorreta.value !== "" &&
+    urlCorreta.value !== "" &&
+    isValidUrl(urlCorreta.value)
+  ) {
+    const rightAnswer = {};
+    rightAnswer.text = respostaCorreta.value;
+    rightAnswer.image = urlCorreta.value;
+    rightAnswer.isCorrectAnswer = true;
+    answers.push(rightAnswer);
+  } else {
+    alert("Dados inválidos em resposta correta");
+    verificarRespostas = false;
+  }
+  let contadorDeRespostas = 0;
+
+  for (let index = 0; index < respostasIncorretas.length; index++) {
+    if (
+      respostasIncorretas[index].value !== "" &&
+      urlsIncorretas[index].value !== "" &&
+      isValidUrl(urlsIncorretas[index].value)
+    ) {
       const answer = {};
-      answer.text = respostasIncorretas[i].value;
-      answer.image = urlIncorretas[i].value;
+      answer.text = respostasIncorretas[index].value;
+      answer.image = urlsIncorretas[index].value;
       answer.isCorrectAnswer = false;
       answers.push(answer);
     }
-  }
-
-  return answers[index];
-}
-
-function coletarTodasInfos() {
-  const answers = [];
-
-  for (let j = 0; j < quizzCriado.questions; j++) {
-    answers.push(coletarInfoRespostasCorretas(j));
-    for (let i = 0; i < quizzCriado.questions; i += 3) {
+    if (
+      respostasIncorretas[index].value !== "" ||
+      urlsIncorretas[index].value !== ""
+    ) {
+      contadorDeRespostas++;
+    }
+    for (let k = 0; k < contadorDeRespostas; k++) {
       if (
-        coletarInfoRespostasIncorretas(i) !== "" &&
-        coletarInfoRespostasIncorretas(i + 1) !== "" &&
-        coletarInfoRespostasIncorretas(i + 2) !== ""
+        contadorDeRespostas < 1 ||
+        !isValidUrl(urlsIncorretas[k].value) ||
+        respostasIncorretas[k].value === ""
       ) {
-        answers.push(
-          coletarInfoRespostasIncorretas(i),
-          coletarInfoRespostasIncorretas(i + 1),
-          coletarInfoRespostasIncorretas(i + 2)
-        );
+        alert("Dados inválidos em Respostas Incorretas");
+        verificarRespostas = false;
+        return;
+      } else {
+        verificarRespostas = true;
       }
     }
   }
 
-  console.log(answers);
+  quizzCriado.questions.answers = answers;
   return answers;
 }
 
 function criarNiveis(botao) {
   const questions = [];
-  for (let index = 0; index < quizzCriado.questions; index++) {
+  for (let index = 0; index < numeroDePerguntas; index++) {
     const question = {};
     question.title = coletarInfoPerguntas(index);
     question.color = coletarInfoCor(index);
-    question.answers = [coletarTodasInfos(index)];
+    question.answers = pegarRespostas(index);
     questions.push(question);
   }
-
-  quizzCriado.questions = questions;
-  containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
-  document.querySelector(".criacao-perguntas").classList.add("invisivel");
-  botao.innerHTML = "Finalizar Quizz";
-  botao.attributes.onclick.value = "criarQuizz()";
+  if (
+    verificarRespostas === true &&
+    verificarPerguntas === true &&
+    verificarCor === true
+  ) {
+    quizzCriado.questions = questions;
+    containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+    document.querySelector(".criacao-perguntas").classList.add("invisivel");
+    botao.innerHTML = "Finalizar Quizz";
+    botao.attributes.onclick.value = "criarQuizz()";
+  }
 }
 
 function criarQuizz() {
@@ -522,87 +569,4 @@ function voltarHome() {
 
 function comparador() {
   return Math.random() - 0.5;
-}
-
-questions: [
-  {
-    title: "Título da pergunta 1",
-    color: "#123456",
-    answers: [
-      {
-        text: "Texto da resposta 1",
-        image: "https://http.cat/411.jpg",
-        isCorrectAnswer: true,
-      },
-      {
-        text: "Texto da resposta 2",
-        image: "https://http.cat/412.jpg",
-        isCorrectAnswer: false,
-      },
-    ],
-  },
-
-  {
-    title: "Título da pergunta 2",
-    color: "#123456",
-    answers: [
-      {
-        text: "Texto da resposta 1",
-        image: "https://http.cat/411.jpg",
-        isCorrectAnswer: true,
-      },
-      {
-        text: "Texto da resposta 2",
-        image: "https://http.cat/412.jpg",
-        isCorrectAnswer: false,
-      },
-    ],
-  },
-
-  {
-    title: "Título da pergunta 3",
-    color: "#123456",
-    answers: [
-      {
-        text: "Texto da resposta 1",
-        image: "https://http.cat/411.jpg",
-        isCorrectAnswer: true,
-      },
-      {
-        text: "Texto da resposta 2",
-        image: "https://http.cat/412.jpg",
-        isCorrectAnswer: false,
-      },
-    ],
-  },
-];
-
-function pegarRespostasIncorretas(i) {
-  let criarPerguntasNl = document.querySelectorAll(".criar-perguntas");
-
-  let respostasIncorretas = criarPerguntasNl[i].querySelectorAll(
-    "input[name='resposta-incorreta']"
-  );
-  let urlsIncorretas = criarPerguntasNl[i].querySelectorAll(
-    "input[name='url-resposta-incorreta']"
-  );
-  quizzCriado.questions = [];
-  quizzCriado.questions.answers = [];
-
-  const answers = [];
-
-  for (let index = 0; index < respostasIncorretas.length; index++) {
-    if (
-      respostasIncorretas[index].value !== "" &&
-      urlsIncorretas[index] !== ""
-    ) {
-      const answer = {};
-      answer.text = respostasIncorretas[index].value;
-      answer.image = urlsIncorretas[index].value;
-      answer.isCorrectAnswer = false;
-      answers.push(answer);
-    }
-  }
-
-  console.log(answers);
 }
