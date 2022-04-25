@@ -146,6 +146,8 @@ function esbranquicarRespostas(item, index) {
 }
 
 function visualizarTela2() {
+  containerTela3.classList.add("invisivel");
+
   containerTela1.classList.add("invisivel");
 
   containerTela2.classList.remove("invisivel");
@@ -555,6 +557,7 @@ function pegarNiveis(i) {
 }
 
 function criarNiveis(botao) {
+  let quizzNiveis = containerTela3.querySelector(".criacao-niveis");
   const questions = [];
   for (let index = 0; index < numeroDePerguntas; index++) {
     const question = {};
@@ -648,6 +651,26 @@ function criarQuizz(botao) {
   promise.catch(function () {
     alert("Falha ao enviar o quizz fornecido");
   });
+}
+
+function acessarQuizz() {
+  quizzSelecionado = quizzCriado;
+
+  urlImagem = quizzSelecionado.image;
+
+  tituloQuizz = quizzSelecionado.title;
+
+  questoesQuizz = quizzSelecionado.questions;
+
+  niveisQuizz = quizzSelecionado.levels;
+
+  //Atualizando o DOM e renderizando a página//
+  atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+
+  visualizarTela2();
+
+  console.log(questoesQuizz[0].answers);
+  listaPerguntasQuizz = questoesQuizz;
 }
 
 function abrirPergunta(pergunta) {
