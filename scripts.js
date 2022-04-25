@@ -483,9 +483,10 @@ function pegarRespostas(i) {
     ) {
       contadorDeRespostas++;
     }
+
     for (let k = 0; k < contadorDeRespostas; k++) {
       if (
-        contadorDeRespostas < 1 ||
+        contadorDeRespostas === 0 ||
         !isValidUrl(urlsIncorretas[k].value) ||
         respostasIncorretas[k].value === ""
       ) {
@@ -497,12 +498,15 @@ function pegarRespostas(i) {
       }
     }
   }
-
+  if (contadorDeRespostas === 0) {
+    alert("Preencha ao menos 1 resposta incorreta para a pergunta " + (i + 1));
+  }
   quizzCriado.questions.answers = answers;
   return answers;
 }
 
 function criarNiveis(botao) {
+  let quizzNiveis = containerTela3.querySelector(".criacao-niveis");
   const questions = [];
   for (let index = 0; index < numeroDePerguntas; index++) {
     const question = {};
@@ -518,6 +522,7 @@ function criarNiveis(botao) {
   ) {
     quizzCriado.questions = questions;
     containerTela3.querySelector("h2").innerHTML = "Agora, decida os níveis";
+    quizzNiveis.classList.remove("invisivel");
     document.querySelector(".criacao-perguntas").classList.add("invisivel");
     botao.innerHTML = "Finalizar Quizz";
     botao.attributes.onclick.value = "criarQuizz()";
