@@ -15,6 +15,7 @@ let verificarNiveis;
 let urlImagem;
 const criacaoPerguntas = document.querySelector(".criacao-perguntas");
 const criacaoNiveis = document.querySelector(".criacao-niveis");
+const criacaoQuizzFinalizado = document.querySelector(".quizz-finalizado");
 let tituloQuizz;
 
 let questoesQuizz;
@@ -645,6 +646,23 @@ function criarQuizz(botao) {
   promise.then(function () {
     containerTela3.querySelector("h2").innerHTML = "Seu quizz está pronto!";
     criacaoNiveis.classList.add("invisivel");
+    criacaoQuizzFinalizado.classList.remove("invisivel");
+    criacaoQuizzFinalizado.innerHTML = `<div class="quizz-finalizado">
+    <div class="quizz-box" data-id-do-quizz="">
+      <div class="linear-gradient"></div>
+
+      <div class="quizz-imagem">
+        <img
+          src="${quizzCriado.image}"
+          style="width: 500px; height: 266px; object-fit: fill"
+        />
+      </div>
+
+      <div class="quizz-titulo">
+        <p>${quizzCriado.title}</p>
+      </div>
+    </div>
+  </div>`;
     botao.innerHTML = "Acessar quizz";
     botao.attributes.onclick.value = "acessarQuizz()";
   });
