@@ -648,7 +648,7 @@ function pegarNiveis(i) {
     verificarNiveis = true;
     verificarPorcentagem = 0;
   } else {
-    alert("dados inválidos, por favor preencha novamente");
+    alert(`Dados inválidos no nível ${i + 1}, por favor preencha novamente`);
     verificarNiveis = false;
   }
 }

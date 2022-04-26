@@ -300,6 +300,7 @@ main h2 {
 .imagem-nivel {
   width: calc(50% - 10px);
   height: 100%;
+  min-height: 273px;
 }
 .imagem-nivel img {
   object-fit: cover;
