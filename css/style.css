@@ -191,13 +191,14 @@ main h2 {
 .pergunta {
   padding: 36px;
   width: 759px;
-  height: 676px;
+  height: 100%;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
 }
 .titulo-pergunta {
   width: 100%;
-  height: 30%;
+  min-height: 100px;
   font-size: 23px;
   font-weight: 700;
   color: #ffffff;
@@ -207,7 +208,7 @@ main h2 {
   background-color: blue;
 }
 .titulo-pergunta p {
-  padding: 15px;
+  padding: 0 15px;
   word-break: break-word;
 }
 
@@ -221,19 +222,18 @@ main h2 {
 }
 
 .resposta {
-  width: calc(50% - 10px);
+  width: 50%;
   height: 100%;
   max-width: calc(50% - 10px);
 }
 
 .imagem-resposta {
   width: 100%;
-  height: calc(100% - 42px);
 }
 .imagem-resposta img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 180px;
+  object-fit: fill;
   object-position: center;
 }
 
@@ -276,6 +276,10 @@ main h2 {
   font-weight: 700;
   color: #ffffff;
   font-size: 23px;
+}
+.titulo-nivel h3 {
+  padding: 0 12px;
+  word-break: break-word;
 }
 .conteudo-nivel {
   display: flex;
@@ -514,8 +518,8 @@ main h2 {
   }
 
   .pergunta {
-    width: 100%;
-    height: 436px;
+    width: 94%;
+    height: 100%;
     padding: 18px;
   }
 
@@ -580,8 +584,25 @@ main h2 {
     color: #bababa;
     padding-left: 10px;
   }
+  .imagem-resposta {
+    max-width: 100%;
+    min-height: 113px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .imagem-resposta img {
+    width: 100%;
+    height: 113px;
+    object-fit: cover;
+    object-position: center;
+  }
 }
 @media (max-width: 500px) {
+  .pergunta {
+    width: 94%;
+    height: 100%;
+    padding: 8px;
+  }
   .quizz-finalizado {
     display: flex;
     align-items: center;
