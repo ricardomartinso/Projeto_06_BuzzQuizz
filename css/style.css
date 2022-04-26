@@ -175,6 +175,8 @@ main h2 {
 }
 
 .imagem-titulo h3 {
+  width: 95%;
+  word-break: break-word;
   position: absolute;
   left: auto;
   top: auto;
@@ -619,9 +621,13 @@ main h2 {
   }
   .imagem-resposta img {
     width: 100%;
-    height: 113px;
+    height: 180px;
     object-fit: cover;
     object-position: center;
+  }
+  .texto-resposta {
+    font-size: 16px;
+    height: 100%;
   }
 }
 @media (max-width: 500px) {
@@ -650,6 +656,25 @@ main h2 {
     padding-left: 10px;
     line-height: 24px;
     word-break: break-word;
+  }
+  .imagem-resposta img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    object-position: center;
+  }
+  .texto-resposta {
+    font-size: 15px;
+    height: 100%;
+  }
+}
+@media (max-width: 380px) {
+  .quizz-box {
+    width: 100%;
+  }
+  .quizz-imagem img {
+    width: 100% !important;
+    min-width: 0 !important;
   }
 }
 .invisivel {
