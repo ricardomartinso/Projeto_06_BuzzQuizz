@@ -48,9 +48,9 @@ function pegarQuizzes() {
 
 pegarQuizzes();
 
-if (idsUsuario.length !== 0) {
-  quizzesDoUsuario();
-}
+// if (idsUsuario.length !== 0) {
+//   quizzesDoUsuario();
+// }
 
 function renderizarQuizzes(resposta) {
   listaQuizzes = resposta.data;
@@ -634,6 +634,13 @@ function criarNiveis(botao) {
     question.color = coletarInfoCor(index);
     question.answers = pegarRespostas(index);
     questions.push(question);
+    if (
+      verificarPerguntas === false ||
+      verificarCor === false ||
+      verificarRespostas === false
+    ) {
+      return;
+    }
   }
   if (
     verificarRespostas === true &&
