@@ -21,6 +21,9 @@ let tituloQuizz;
 let idsUsuario = [];
 
 carregarIdsUsuario();
+if (idsUsuario.length >= 1) {
+  quizzesDoUsuario();
+}
 
 let questoesQuizz;
 const containerQuizzes = document.querySelector(".quizz-boxes");
@@ -79,8 +82,10 @@ function povoarDomQuizzes() {
 }
 
 function quizzesDoUsuario() {
-  let seusQuizzes = document.querySelector(".criar-quizz");
-  seusQuizzes.innerHTML = "<div class='container-quizzes-usuario'></div>";
+  let seusQuizzes = document.querySelector(".quizzes-do-usuario");
+  const naoCriouQuizz = document.querySelector(".nao-criou-quizz");
+  const seusQuizzesH2 = document.querySelector(".criar-quizz h2");
+  seusQuizzes.innerHTML = "";
 
   for (let i = 0; i < idsUsuario.length; i++) {
     let promise = axios.get(
@@ -88,8 +93,10 @@ function quizzesDoUsuario() {
     );
     promise.then(function (resposta) {
       let quizz = resposta.data;
-
-      seusQuizzes.querySelector(".container-quizzes-usuario").innerHTML += `
+      seusQuizzesH2.classList.remove("invisivel");
+      seusQuizzes.classList.remove("invisivel");
+      naoCriouQuizz.classList.add("invisivel");
+      seusQuizzes.innerHTML += `
     <div class="quizz-box" onclick="selecionarQuizzUsuario(this)" data-id-do-quizz="${quizz.id}">
 
             <div class="linear-gradient"></div>
@@ -760,7 +767,9 @@ function voltarHome() {
 }
 
 function carregarIdsUsuario() {
-  idsUsuario = JSON.parse(localStorage.getItem("ids"));
+  if (localStorage.getItem("ids") !== null) {
+    idsUsuario = JSON.parse(localStorage.getItem("ids"));
+  }
 }
 
 function comparador() {
