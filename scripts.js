@@ -209,6 +209,8 @@ function verificarCorreta(elemento) {
 }
 
 function rolarParaPerguntaSeguinte() {
+  let perguntaNivel = document.querySelector(".pergunta.nivel");
+
   if (numeroDaPergunta !== listaPerguntasQuizz.length - 1) {
     document.querySelector(`.numero${numeroDaPergunta + 1}`).scrollIntoView({
       behavior: "smooth",
@@ -218,7 +220,7 @@ function rolarParaPerguntaSeguinte() {
   } else if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
     document.querySelector(".pergunta.nivel").scrollIntoView({
       behavior: "smooth",
-      block: "end",
+      block: "start",
       inline: "nearest",
     });
   }
