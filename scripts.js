@@ -218,8 +218,8 @@ function rolarParaPerguntaSeguinte() {
   } else if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
     document.querySelector(".pergunta.nivel").scrollIntoView({
       behavior: "smooth",
-      block: "center",
-      inline: "center",
+      block: "end",
+      inline: "nearest",
     });
   }
 }
