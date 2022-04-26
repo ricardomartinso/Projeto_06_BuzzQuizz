@@ -543,7 +543,7 @@ function pegarRespostas(i) {
     rightAnswer.isCorrectAnswer = true;
     answers.push(rightAnswer);
   } else {
-    alert("Dados inválidos em resposta correta");
+    alert("Dados inválidos em resposta correta da pergunta " + (i + 1));
     verificarRespostas = false;
   }
   let contadorDeRespostas = 0;
@@ -566,13 +566,19 @@ function pegarRespostas(i) {
     ) {
       contadorDeRespostas++;
     }
+
+    if (contadorDeRespostas === 0) {
+      alert("Dados inválidos em Respostas Incorretas da pergunta " + (i + 1));
+      verificarRespostas = false;
+      return;
+    }
+
     for (let k = 0; k < contadorDeRespostas; k++) {
       if (
-        contadorDeRespostas === 0 ||
         !isValidUrl(urlsIncorretas[k].value) ||
         respostasIncorretas[k].value === ""
       ) {
-        alert("Dados inválidos em Respostas Incorretas");
+        alert("Dados inválidos em Respostas Incorretasda pergunta " + (i + 1));
         verificarRespostas = false;
         return;
       } else {
