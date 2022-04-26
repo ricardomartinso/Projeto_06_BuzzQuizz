@@ -272,7 +272,8 @@ main h2 {
 }
 .titulo-nivel {
   display: flex;
-  height: 100px;
+  height: 100%;
+  padding: 10px;
   align-items: center;
   word-break: break-word;
   justify-content: center;
