@@ -444,6 +444,26 @@ main h2 {
   color: black;
   margin-right: 15px;
 }
+.nivel-criacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 614px;
+  height: 60px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 2px rgb(0 0 0 / 50%);
+}
+.nivel-criacao p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 15px;
+}
+.nivel-criacao ion-icon {
+  font-size: 28px;
+  color: black;
+  margin-right: 15px;
+}
 .criacao-niveis {
   max-width: 1060px;
 }
@@ -499,6 +519,9 @@ main h2 {
     width: 95%;
   }
   .criar-quizz {
+    width: 100%;
+  }
+  .nao-criou-quizz {
     width: 100%;
   }
   .todos-os-quizzes {
@@ -573,11 +596,15 @@ main h2 {
     width: 95%;
     margin: 0 auto 20px auto;
   }
+  .nivel-criacao {
+    width: 95%;
+    margin: 0 auto 20px auto;
+  }
   .criacao-niveis {
     width: 90%;
   }
   .criar-nivel {
-    width: 90%;
+    width: 95%;
   }
   .criacao-quizz input::placeholder {
     font-size: 15px;

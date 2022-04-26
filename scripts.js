@@ -707,8 +707,13 @@ function criarNiveis(botao) {
   </div>`;
 
     for (let i = 0; i < numeroDeNiveis - 1; i++) {
-      criacaoNiveis.innerHTML += `<div class="criar-nivel">
-      <h2>Nível ${i + 2}</h2>
+      criacaoNiveis.innerHTML += `
+      <div class="nivel-criacao" onclick="abrirNivel(this)">
+              <p>Nivel ${i + 2}</p>
+              <ion-icon name="mail"></ion-icon>
+            </div>
+      <div class="criar-nivel invisivel">
+      <h2 onclick="fecharNivel(this)">Nível ${i + 2}</h2>
       <input
         type="text"
         name="titulo-nivel"
@@ -811,6 +816,14 @@ function abrirPergunta(pergunta) {
 function fecharPergunta(pergunta) {
   pergunta.parentNode.previousElementSibling.classList.remove("invisivel");
   pergunta.parentNode.classList.add("invisivel");
+}
+function abrirNivel(nivel) {
+  nivel.classList.toggle("invisivel");
+  nivel.nextElementSibling.classList.toggle("invisivel");
+}
+function fecharNivel(nivel) {
+  nivel.parentNode.previousElementSibling.classList.remove("invisivel");
+  nivel.parentNode.classList.add("invisivel");
 }
 
 function isValidUrl(_string) {
