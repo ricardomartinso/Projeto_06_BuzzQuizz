@@ -735,6 +735,10 @@ function criarNiveis(botao) {
 }
 
 function criarQuizz(botao) {
+  const voltarHomeTela3 = document.querySelector(
+    ".container.tela-3 .voltar-home"
+  );
+
   quizzCriado.levels = [];
   for (let i = 0; i < numeroDeNiveis; i++) {
     pegarNiveis(i);
@@ -766,6 +770,7 @@ function criarQuizz(botao) {
   </div>`;
     botao.innerHTML = "Acessar quizz";
     botao.attributes.onclick.value = "acessarQuizz()";
+    voltarHomeTela3.classList.remove("invisivel");
   });
 
   promise.then(function (resposta) {
