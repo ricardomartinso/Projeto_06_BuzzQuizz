@@ -212,8 +212,8 @@ function rolarParaPerguntaSeguinte() {
   if (numeroDaPergunta !== listaPerguntasQuizz.length - 1) {
     document.querySelector(`.numero${numeroDaPergunta + 1}`).scrollIntoView({
       behavior: "smooth",
-      block: "start",
-      inline: "center",
+      block: "center",
+      inline: "nearest",
     });
   } else if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
     document.querySelector(".pergunta.nivel").scrollIntoView({
