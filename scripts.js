@@ -212,11 +212,13 @@ function rolarParaPerguntaSeguinte() {
   let perguntaNivel = document.querySelector(".pergunta.nivel");
 
   if (numeroDaPergunta !== listaPerguntasQuizz.length - 1) {
-    document.querySelector(`.numero${numeroDaPergunta + 1}`).scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
+    document
+      .querySelector(`.pergunta.numero${numeroDaPergunta + 1}`)
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
   } else if (numeroPerguntasRespondidas === listaPerguntasQuizz.length) {
     document.querySelector(".pergunta.nivel").scrollIntoView({
       behavior: "smooth",
