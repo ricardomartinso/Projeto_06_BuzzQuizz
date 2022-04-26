@@ -176,6 +176,7 @@ main h2 {
 
 .imagem-titulo h3 {
   width: 95%;
+  text-align: center;
   word-break: break-word;
   position: absolute;
   left: auto;
