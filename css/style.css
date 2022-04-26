@@ -200,6 +200,7 @@ main h2 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   margin-top: 30px;
   margin-bottom: 20px;
+  scroll-margin-top: 80px;
 }
 .titulo-pergunta {
   width: 100%;
