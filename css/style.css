@@ -475,7 +475,7 @@ main h2 {
 }
 .quizzes-do-usuario {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 181px;
   flex-wrap: wrap;

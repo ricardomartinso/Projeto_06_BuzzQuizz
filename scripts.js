@@ -55,6 +55,18 @@ pegarQuizzes();
 //   quizzesDoUsuario();
 // }
 
+function retirarQuizzRepetido() {
+  for (let i = 0; i < idsUsuario.length; i++) {
+    let idQuizzRepetido = idsUsuario[i];
+    let elementoRepetido = document
+      .querySelector(".todos-os-quizzes")
+      .querySelector(`.quizz-box[data-id-do-quizz='${idQuizzRepetido}']`);
+    if (elementoRepetido !== null) {
+      elementoRepetido.classList.add("invisivel");
+    }
+  }
+}
+
 function renderizarQuizzes(resposta) {
   listaQuizzes = resposta.data;
   containerQuizzes.innerHTML = "";
@@ -83,6 +95,7 @@ function povoarDomQuizzes() {
         </div>
         `;
   }
+  retirarQuizzRepetido();
 }
 
 function quizzesDoUsuario() {
