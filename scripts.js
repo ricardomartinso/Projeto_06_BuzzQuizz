@@ -51,6 +51,10 @@ function pegarQuizzes() {
 
 pegarQuizzes();
 
+// if (idsUsuario.length !== 0) {
+//   quizzesDoUsuario();
+// }
+
 function renderizarQuizzes(resposta) {
   listaQuizzes = resposta.data;
   containerQuizzes.innerHTML = "";
@@ -116,6 +120,33 @@ function quizzesDoUsuario() {
     `;
     });
   }
+}
+
+function selecionarQuizzUsuario(elemento) {
+  let idDoQuizz = elemento.getAttribute("data-id-do-quizz");
+  const promessa = axios.get(
+    `https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${idDoQuizz}`
+  );
+
+  promessa.then(function (response) {
+    quizzSelecionado = response.data;
+
+    urlImagem = quizzSelecionado.image;
+
+    tituloQuizz = quizzSelecionado.title;
+
+    questoesQuizz = quizzSelecionado.questions;
+
+    niveisQuizz = quizzSelecionado.levels;
+
+    //Atualizando o DOM e renderizando a página//
+    atualizarTela2(urlImagem, tituloQuizz, questoesQuizz, niveisQuizz);
+
+    visualizarTela2();
+
+    console.log(questoesQuizz[0].answers);
+    listaPerguntasQuizz = questoesQuizz;
+  });
 }
 
 function selecionarQuizz(elemento) {
@@ -610,6 +641,13 @@ function criarNiveis(botao) {
     question.color = coletarInfoCor(index);
     question.answers = pegarRespostas(index);
     questions.push(question);
+    if (
+      verificarPerguntas === false ||
+      verificarCor === false ||
+      verificarRespostas === false
+    ) {
+      return;
+    }
   }
   if (
     verificarRespostas === true &&
