@@ -208,6 +208,7 @@ main h2 {
 }
 .titulo-pergunta p {
   padding: 15px;
+  word-break: break-word;
 }
 
 .respostas {
